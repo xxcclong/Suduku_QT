@@ -4,27 +4,37 @@
 #include <vector>
 using namespace std;
 int sum = 81;
+int step = 0;
+int grid[10];    // at begin 
+bool gridnum[10][10];
 
-
-
-int grid(int x,int y)
+int find_grid(int x,int y)   //  read in the location and return the grid number
 {
-	x = (x-1)%3 + 1;
-
+	int gx = (x-1)%3 + 1;
+	int gy = (y-1)%3 + 1;
+	return (gx-1)*3+gy;
 }
 
+/*
+grid
+1 2 3
+4 5 6
+7 8 9
+
+*/
 
 
 
-
-struct point
+struct point    
 {
 	int num;
 	bool ok[10];
 	bool settled;
 	int posibles;
+	int sequence;
 	point()
 	{
+		sequence = -1;
 		num = 0;
 		for(int i=0;i<=9;++i)
 			ok = true;
@@ -32,7 +42,7 @@ struct point
 	}
 }g[10][10];
 
-void debug_print()
+void debug_print()//    print the whole pic to debug
 {
 	for(int i=1;i<=9;++i)
 	{
@@ -87,7 +97,7 @@ void solverow()
 	}
 }
 */
-void deny(x,y,Num)
+void deny(const int &x,const int &y,const int &Num)
 {
 	--sum;
 	g[x][y].num = Num;
@@ -126,6 +136,13 @@ void deny(x,y,Num)
 				}
 		}
 	}
+	const int gridpos = find_grid(x,y);
+	--grid[gridpos];
+	gridnum[gridpos][Num] = 0;
+	if(grid[gridpos] == 1)
+	{
+		for(int i = )
+	}
 	
 }
 
@@ -148,6 +165,18 @@ int basicsolve()
 }
 void readin()
 {
+	// set the graph
+	for(int i=1;i<=9;++i)
+	{
+		grid[i] = 9;
+		for(int j = 1;j<=9;++j)
+		{
+			gridnum[i][j] = 1;
+		}
+	}
+
+
+
 	fstream fin;
 	fin.open("test.txt");
 	while(!fin.eof())
