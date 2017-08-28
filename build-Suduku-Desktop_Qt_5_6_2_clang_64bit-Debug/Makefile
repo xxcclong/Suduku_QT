@@ -561,6 +561,14 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp
 moc_mainwindow.cpp: ../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMenuBar \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QAction \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
 		../Suduku/mainwindow.h
 	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/hkz/Qt5.6.2/5.6/clang_64/mkspecs/macx-clang -I/Users/hkz/study/GIthub/Suduku_QT/Suduku -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers -I. -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib ../Suduku/mainwindow.h -o moc_mainwindow.cpp
 
@@ -587,6 +595,14 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 main.o: ../Suduku/main.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMenuBar \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QAction \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Suduku/main.cpp
@@ -594,6 +610,14 @@ main.o: ../Suduku/main.cpp ../Suduku/mainwindow.h \
 mainwindow.o: ../Suduku/mainwindow.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMenuBar \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QAction \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Suduku/mainwindow.cpp
 
