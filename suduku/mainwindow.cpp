@@ -20,7 +20,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::newgame()
 {
-    qDebug()<<difficulty;
+    qDebug()<<difficultynum;
     return;//    start different games according to d..
 }
 
@@ -118,8 +118,6 @@ void MainWindow::createActions()
 }
 void MainWindow::createMenus()
 {
-    infoMenu = menuBar() -> addMenu(tr("&Info"));
-    infoMenu -> addAction(aboutAction);
 
     fileMenu = menuBar() -> addMenu(tr("&File"));
     fileMenu -> addAction(newAction);
@@ -127,6 +125,8 @@ void MainWindow::createMenus()
     fileMenu -> addAction(saveAction);
     fileMenu -> addAction(saveasAction);
 
+    infoMenu = menuBar() -> addMenu(tr("&Info"));
+    infoMenu -> addAction(aboutAction);
 
    // difficulty = menuBar() ->addMenu((tr("&Difficulty")));
 
