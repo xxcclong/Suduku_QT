@@ -2,9 +2,6 @@
 #include <iostream>
 #include <string.h>
 #include <vector>
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
 using namespace std;
 int sum = 81;
 int step = 0;
@@ -12,7 +9,6 @@ int grid[10];    // at begin
 bool gridnum[10][10];
 int small = 9;
 int smallx = 0,smally = 0;
-
 int find_grid(int x,int y)   //  read in the location and return the grid number
 {
     int gx = (x-1)/3 + 1;
@@ -66,20 +62,7 @@ void debug_print()//    print the whole pic to debug
     return;
 }
 
-void debug_print_seq()//    print the whole pic to debug
-{
-    for(int i=1;i<=9;++i)
-    {
-        for(int j = 1;j<=9;++j)
-        {
-            if(!g[i][j].num)
-                cout<<"* ";
-            else cout<<g[i][j].sequence<<' ';
-        }
-        cout<<endl;
-    }
-    return;
-}
+
 
 int basicsolve()
 {
@@ -104,26 +87,6 @@ int basicsolve()
 ifstream fin("test.txt");
 
 
-
-void form()
-{
-    int all = 20;
-    while(all)
-    {
-        int tempx = rand()%9 + 1;
-        int tempy = rand()%9 + 1;
-        int tempnum = rand()%9 + 1;
-        //cout<<"form:"<<tempx<<' '<<tempy<<' '<<tempnum<<endl;
-        int ans = deny(tempx, tempy, tempnum, 1);
-        if(ans > 0)
-            --all;
-    }
-}
-
-
-
-
-
 void readin()
 {
     // set the graph
@@ -133,7 +96,7 @@ void readin()
     
     
     
-    //debug_print();
+    debug_print();
     int x = 1,y = 1,TempNum = 1;
     while(cin>>x>>y>>TempNum)
     {
@@ -141,12 +104,12 @@ void readin()
             break;
         
         
-       // cout<<x<<y<<TempNum<<endl;
+        cout<<x<<y<<TempNum<<endl;
         if(TempNum!=0)
             deny(x,y,TempNum,true);
         
     }
-    //debug_print();
+    debug_print();
     // here we have done all the readin and cut the branched
     //so we can go on the conculation
     // like the searching9
@@ -154,17 +117,10 @@ void readin()
 }
 int main()
 {
-    srand((int)time(0));
-    form();
-    debug_print();
-   // cout<<smallx<<' '<<smally<<endl;
+    readin();
+    cout<<smallx<<' '<<smally<<endl;
     
     test(smallx,smally);
-    
-    int dif = 10;
-    
-    
-    debug_print_seq();
     
     return 0;
     
@@ -210,32 +166,30 @@ int test(int x,int y)
 int deny(const int x,const int y,const int Num,bool input)
 {
     
-    if(g[x][y].ok[Num]==false||g[x][y].num)
-        return -369;//               when forming the graph ,if it is occupied, return 369 to change another one
-    
-    
-    
     bool changed[10][10];
     for(int i=1;i<=9;++i)
         for(int j =1;j<=9;++j)
             changed[i][j] = 0;
-    
+    if(input)
+    {
+       // cout<<x<<' '<<y<<' '<<Num<<endl;
+        //debug_print();
+        
+    }
     int success = 1;
+    int tempsmall = small,tempsmallx = smallx,tempsmally = smally;
     if(!input)
     {
         small = 9;
         smallx = 0;
         smally = 0;
     }
-    
-    g[x][y].num = Num;
     ++step;
     g[x][y].sequence = step;
     --sum;
-    
+    g[x][y].num = Num;
     if(!sum)
     {
-        cout<<"the final answer"<<endl;
         debug_print();
         whole = 333;
         //while(true)
@@ -441,42 +395,11 @@ int deny(const int x,const int y,const int Num,bool input)
     if(input&&!success)
         
     {
-        --step;
-        g[x][y].sequence = -1;
-        ++sum;
-        g[x][y].num = 0;
-        
-        for(int i = 1;i<=9;++i)
-        {
-            if(changed[x][i])
-            {
-                changed[x][i] = false;
-                g[x][i].posibles += 1;
-                g[x][i].ok[Num] = true;
-            }
-            if(changed[i][y])
-            {
-                changed[i][y] = false;
-                g[i][y].posibles +=1;
-                g[i][y].ok[Num] = true;
-            }
-        }
-        const int gridpos = find_grid(x,y);
-        for(int i = ((gridpos-1)/3+1)*3-2;i<=((gridpos-1)/3+1)*3;++i)
-            for(int j = ((gridpos-1)%3+1)*3-2;j<=((gridpos-1)%3+1)*3;++j)
-            {
-                if(changed[i][j])
-                {
-                    changed[i][j] = false;
-                    g[i][j].posibles += 1;
-                    g[i][j].ok[Num] = true;
-                }
-            }
         cout<<"input has problem"<<endl;
-        return -369;
+        return 777;
     }
-   // debug_print();
-    //cout<<x<<"******** regular"<<y<<endl;
+    debug_print();
+    cout<<x<<"******** regular"<<y<<endl;
     
     
     if(success)
@@ -486,10 +409,17 @@ int deny(const int x,const int y,const int Num,bool input)
     
     if(!success)
     {
-      //  cout<<"worong!!!!!"<<endl;
-       // cout<<x<<"   cuo     "<<y<<endl;
-
-        
+        debug_print();
+        cout<<"worong!!!!!"<<endl;
+        cout<<x<<"   cuo     "<<y<<endl;
+        if(x==7&&y==3)
+        {
+           // cout<<"here"<<endl;
+            
+        }
+        small = tempsmall;
+        smallx = tempsmallx;
+        smally = tempsmally;
         --step;
         g[x][y].sequence = -1;
         ++sum;
@@ -528,3 +458,41 @@ int deny(const int x,const int y,const int Num,bool input)
 
 
 
+
+/*
+ void solverow()
+ {
+	int occupiedrow[10];
+	int occupiedcol[10];
+	for(int i=1;i<=9;++i)
+	{
+ memset(occupiedcol,0,sizeof(occupiedcol));
+ memset(occupiedrow,0,sizeof(occupiedrow));
+ for(int j = 1;j<=9;++j)
+ {
+ if(g[i][j].num)
+ occupiedrow[g[i][j].num] = 1;
+ if(g[j][i].num)
+ occupiedcol[g[j][i].num] = 1;
+ }
+ for(int j = 1;j<=9;++j)
+ {
+ if(!g[i][j].num)
+ for(int k = 1;k<=9;++k)
+ if(occupiedrow[k])
+ {
+ g[i][j].ok[k] = false;
+ --g[i][j].posibles;
+ }
+ if(!g[j][i].num)
+ for(int k = 1;k<=9;++k)
+ if(occupiedcol[k])
+ {
+ g[j][i].ok[k] = false;
+ //	x stands for the row num and y for the cols so if i want to a[x][y]
+ --g[j][i].posibles;
+ }
+ }
+	}
+ }
+ */

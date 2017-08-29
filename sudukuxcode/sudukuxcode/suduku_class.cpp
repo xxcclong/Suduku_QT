@@ -8,8 +8,8 @@
 using namespace std;
 int sum = 81;
 int step = 0;
-int grid[10];    // at begin
-bool gridnum[10][10];
+
+
 int small = 9;
 int smallx = 0,smally = 0;
 
@@ -79,25 +79,6 @@ void debug_print_seq()//    print the whole pic to debug
         cout<<endl;
     }
     return;
-}
-
-int basicsolve()
-{
-    for(int i=1;i<=9;++i)
-        for(int j =1;j<=9;++j)
-        {
-            if(!g[i][j].num&&g[i][j].posibles==1)
-            {
-                int k;
-                for(k = 1;k<=9;++k)
-                {
-                    if(g[i][j].ok[k])
-                        break;
-                }
-                deny(i,j,k,0);
-            }
-        }
-    return 0;
 }
 
 

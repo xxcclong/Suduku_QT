@@ -1,57 +1,17 @@
-#include <fstream>
+#include "sudukuclass.h"
 #include <iostream>
-#include <string.h>
-#include <vector>
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
 using namespace std;
-int sum = 81;
-int step = 0;
-int grid[10];    // at begin
-bool gridnum[10][10];
-int small = 9;
-int smallx = 0,smally = 0;
 
-int find_grid(int x,int y)   //  read in the location and return the grid number
+
+int sudu::find_grid(int x,int y)   //  read in the location and return the grid number
 {
     int gx = (x-1)/3 + 1;
     int gy = (y-1)/3 + 1;
     return (gx-1)*3+gy;
 }
-int whole = 0;
-/*
- grid
- 1 2 3
- 4 5 6
- 7 8 9
- */
-int test(int,int);
-int deny(const int,const int,const int,bool);
 
 
-struct point
-{
-    int num;
-    bool ok[10];
-    bool settled;
-    int posibles;
-    int sequence;
-    bool least;
-    bool changed;
-    point()
-    {
-        sequence = -1;
-        num = 0;
-        for(int i=0;i<=9;++i)
-            ok[i] = true;
-        posibles =9;
-        least = false;
-        changed = false;
-    }
-}g[10][10];
-
-void debug_print()//    print the whole pic to debug
+void sudu::debug_print()//    print the whole pic to debug
 {
     for(int i=1;i<=9;++i)
     {
@@ -66,7 +26,7 @@ void debug_print()//    print the whole pic to debug
     return;
 }
 
-void debug_print_seq()//    print the whole pic to debug
+void sudu::debug_print_seq()//    print the whole pic to debug
 {
     for(int i=1;i<=9;++i)
     {
@@ -81,31 +41,8 @@ void debug_print_seq()//    print the whole pic to debug
     return;
 }
 
-int basicsolve()
-{
-    for(int i=1;i<=9;++i)
-        for(int j =1;j<=9;++j)
-        {
-            if(!g[i][j].num&&g[i][j].posibles==1)
-            {
-                int k;
-                for(k = 1;k<=9;++k)
-                {
-                    if(g[i][j].ok[k])
-                        break;
-                }
-                deny(i,j,k,0);
-            }
-        }
-    return 0;
-}
 
-
-ifstream fin("test.txt");
-
-
-
-void form()
+void sudu::form()
 {
     int all = 20;
     while(all)
@@ -122,9 +59,7 @@ void form()
 
 
 
-
-
-void readin()
+void sudu::readin()
 {
     // set the graph
     
@@ -152,26 +87,8 @@ void readin()
     // like the searching9
     // the least one have 2/3 so we can search through that
 }
-int main()
-{
-    srand((int)time(0));
-    form();
-    debug_print();
-   // cout<<smallx<<' '<<smally<<endl;
-    
-    test(smallx,smally);
-    
-    int dif = 10;
-    
-    
-    debug_print_seq();
-    
-    return 0;
-    
-}
 
-
-int test(int x,int y)
+int sudu::test(int x,int y)
 {
     if(whole == 333)
         return 333;
@@ -207,7 +124,7 @@ int test(int x,int y)
 
 
 
-int deny(const int x,const int y,const int Num,bool input)
+int sudu::deny(const int x,const int y,const int Num,bool input)
 {
     
     if(g[x][y].ok[Num]==false||g[x][y].num)
@@ -525,6 +442,4 @@ int deny(const int x,const int y,const int Num,bool input)
     
     return 0;
 }
-
-
 

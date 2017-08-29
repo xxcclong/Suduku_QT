@@ -49,9 +49,11 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../Suduku/main.cpp \
-		../Suduku/mainwindow.cpp moc_mainwindow.cpp
+		../Suduku/mainwindow.cpp \
+		../Suduku/sudukuclass.cpp moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
+		sudukuclass.o \
 		moc_mainwindow.o
 DIST          = ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/qdevice.pri \
@@ -172,6 +174,7 @@ DIST          = ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/spec_post.prf \
+		../Suduku/.qmake.stash \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/default_pre.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -194,8 +197,10 @@ DIST          = ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/exceptions.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/yacc.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/lex.prf \
-		../Suduku/Suduku.pro ../Suduku/mainwindow.h ../Suduku/main.cpp \
-		../Suduku/mainwindow.cpp
+		../Suduku/Suduku.pro ../Suduku/mainwindow.h \
+		../Suduku/sudukuclass.h ../Suduku/main.cpp \
+		../Suduku/mainwindow.cpp \
+		../Suduku/sudukuclass.cpp
 QMAKE_TARGET  = Suduku
 DESTDIR       = 
 TARGET        = Suduku.app/Contents/MacOS/Suduku
@@ -327,6 +332,7 @@ Makefile: ../Suduku/Suduku.pro ../../../../Qt5.6.2/5.6/clang_64/mkspecs/macx-cla
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/default_pre.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -473,6 +479,7 @@ Makefile: ../Suduku/Suduku.pro ../../../../Qt5.6.2/5.6/clang_64/mkspecs/macx-cla
 ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/qt_config.prf:
 ../../../../Qt5.6.2/5.6/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/default_pre.prf:
 ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/mac/default_pre.prf:
@@ -528,8 +535,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../Suduku/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Suduku/main.cpp ../Suduku/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Suduku/mainwindow.h ../Suduku/sudukuclass.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Suduku/main.cpp ../Suduku/mainwindow.cpp ../Suduku/sudukuclass.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Suduku/mainwindow.ui $(DISTDIR)/
 
 
@@ -620,6 +627,9 @@ mainwindow.o: ../Suduku/mainwindow.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Suduku/mainwindow.cpp
+
+sudukuclass.o: ../Suduku/sudukuclass.cpp ../Suduku/sudukuclass.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sudukuclass.o ../Suduku/sudukuclass.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

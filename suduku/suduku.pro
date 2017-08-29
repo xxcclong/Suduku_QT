@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    sudukuclass.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    sudukuclass.h
 
 FORMS    += mainwindow.ui
