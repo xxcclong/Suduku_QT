@@ -222,8 +222,11 @@ int main()
 {
     node = new tree();
     srand((int)time(0));
-    
+    //readin();
+   // test(smallx,smally);
     form();
+    debug_print();
+    //form();
     
     
     
@@ -312,7 +315,7 @@ int deny(const int x,const int y,const int Num,bool input)
     if(!sum)
     {
        // cout<<"the final answer"<<endl;
-       // debug_print();
+        debug_print();
         tree* tempnode = node;
         while(tempnode->former!=NULL)
         {

@@ -50,12 +50,30 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../Suduku/main.cpp \
 		../Suduku/mainwindow.cpp \
-		../Suduku/sudukuclass.cpp moc_mainwindow.cpp
+		../Suduku/sudukuclass.cpp \
+		../Suduku/choosedia.cpp \
+		../Suduku/dialogchoo.cpp qrc_numbers.cpp \
+		moc_mainwindow.cpp \
+		moc_dialogchoo.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		sudukuclass.o \
-		moc_mainwindow.o
-DIST          = ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/spec_pre.prf \
+		choosedia.o \
+		dialogchoo.o \
+		qrc_numbers.o \
+		moc_mainwindow.o \
+		moc_dialogchoo.o
+DIST          = ../Suduku/4d84438b4710b91267cfabd8c2fdfc039245221b.png \
+		../Suduku/numbers/9.png \
+		../Suduku/numbers/8.png \
+		../Suduku/numbers/7.png \
+		../Suduku/numbers/6.png \
+		../Suduku/numbers/5.png \
+		../Suduku/numbers/4.png \
+		../Suduku/numbers/3.png \
+		../Suduku/numbers/2.png \
+		../Suduku/numbers/1.png \
+		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/qdevice.pri \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/device_config.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/common/unix.conf \
@@ -198,9 +216,13 @@ DIST          = ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/yacc.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/lex.prf \
 		../Suduku/Suduku.pro ../Suduku/mainwindow.h \
-		../Suduku/sudukuclass.h ../Suduku/main.cpp \
+		../Suduku/sudukuclass.h \
+		../Suduku/choosedia.h \
+		../Suduku/dialogchoo.h ../Suduku/main.cpp \
 		../Suduku/mainwindow.cpp \
-		../Suduku/sudukuclass.cpp
+		../Suduku/sudukuclass.cpp \
+		../Suduku/choosedia.cpp \
+		../Suduku/dialogchoo.cpp
 QMAKE_TARGET  = Suduku
 DESTDIR       = 
 TARGET        = Suduku.app/Contents/MacOS/Suduku
@@ -209,7 +231,7 @@ TARGET        = Suduku.app/Contents/MacOS/Suduku
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_dialogchoo.h $(OBJECTS)  
 	@test -d Suduku.app/Contents/MacOS/ || mkdir -p Suduku.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -356,6 +378,7 @@ Makefile: ../Suduku/Suduku.pro ../../../../Qt5.6.2/5.6/clang_64/mkspecs/macx-cla
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/yacc.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/lex.prf \
 		../Suduku/Suduku.pro \
+		../Suduku/numbers/numbers.qrc \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/QtGui.prl \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/QtCore.prl
@@ -503,6 +526,7 @@ Makefile: ../Suduku/Suduku.pro ../../../../Qt5.6.2/5.6/clang_64/mkspecs/macx-cla
 ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/yacc.prf:
 ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/lex.prf:
 ../Suduku/Suduku.pro:
+../Suduku/numbers/numbers.qrc:
 ../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
 ../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/QtGui.prl:
 ../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/QtCore.prl:
@@ -535,9 +559,10 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../Suduku/mainwindow.h ../Suduku/sudukuclass.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Suduku/main.cpp ../Suduku/mainwindow.cpp ../Suduku/sudukuclass.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Suduku/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../Suduku/numbers/numbers.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents ../Suduku/mainwindow.h ../Suduku/sudukuclass.h ../Suduku/choosedia.h ../Suduku/dialogchoo.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Suduku/main.cpp ../Suduku/mainwindow.cpp ../Suduku/sudukuclass.cpp ../Suduku/choosedia.cpp ../Suduku/dialogchoo.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Suduku/mainwindow.ui ../Suduku/dialogchoo.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -561,12 +586,27 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_numbers.cpp
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp
+	-$(DEL_FILE) qrc_numbers.cpp
+qrc_numbers.cpp: ../Suduku/numbers/numbers.qrc \
+		../Suduku/numbers/2.png \
+		../Suduku/numbers/6.png \
+		../Suduku/numbers/1.png \
+		../Suduku/numbers/5.png \
+		../Suduku/numbers/9.png \
+		../Suduku/numbers/0.png \
+		../Suduku/numbers/4.png \
+		../Suduku/numbers/8.png \
+		../Suduku/numbers/3.png \
+		../Suduku/numbers/7.png
+	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/rcc -name numbers ../Suduku/numbers/numbers.qrc -o qrc_numbers.cpp
+
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_dialogchoo.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
-moc_mainwindow.cpp: ../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+	-$(DEL_FILE) moc_mainwindow.cpp moc_dialogchoo.cpp
+moc_mainwindow.cpp: ../Suduku/sudukuclass.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
@@ -576,16 +616,41 @@ moc_mainwindow.cpp: ../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Hea
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QGridLayout \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QIcon \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qicon.h \
+		../Suduku/dialogchoo.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
 		../Suduku/mainwindow.h
 	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/hkz/Qt5.6.2/5.6/clang_64/mkspecs/macx-clang -I/Users/hkz/study/GIthub/Suduku_QT/Suduku -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers -I. -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib ../Suduku/mainwindow.h -o moc_mainwindow.cpp
 
+moc_dialogchoo.cpp: ../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		../Suduku/dialogchoo.h
+	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/hkz/Qt5.6.2/5.6/clang_64/mkspecs/macx-clang -I/Users/hkz/study/GIthub/Suduku_QT/Suduku -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers -I. -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib ../Suduku/dialogchoo.h -o moc_dialogchoo.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_mainwindow.h ui_dialogchoo.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
+	-$(DEL_FILE) ui_mainwindow.h ui_dialogchoo.h
 ui_mainwindow.h: ../Suduku/mainwindow.ui
 	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/uic ../Suduku/mainwindow.ui -o ui_mainwindow.h
+
+ui_dialogchoo.h: ../Suduku/dialogchoo.ui
+	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/uic ../Suduku/dialogchoo.ui -o ui_dialogchoo.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -595,11 +660,12 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
 main.o: ../Suduku/main.cpp ../Suduku/mainwindow.h \
+		../Suduku/sudukuclass.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QDebug \
@@ -610,11 +676,29 @@ main.o: ../Suduku/main.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QGridLayout \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QIcon \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qicon.h \
+		../Suduku/dialogchoo.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Suduku/main.cpp
 
 mainwindow.o: ../Suduku/mainwindow.cpp ../Suduku/mainwindow.h \
+		../Suduku/sudukuclass.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QDebug \
@@ -625,14 +709,46 @@ mainwindow.o: ../Suduku/mainwindow.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QGridLayout \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QIcon \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qicon.h \
+		../Suduku/dialogchoo.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Suduku/mainwindow.cpp
 
 sudukuclass.o: ../Suduku/sudukuclass.cpp ../Suduku/sudukuclass.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sudukuclass.o ../Suduku/sudukuclass.cpp
 
+choosedia.o: ../Suduku/choosedia.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o choosedia.o ../Suduku/choosedia.cpp
+
+dialogchoo.o: ../Suduku/dialogchoo.cpp ../Suduku/dialogchoo.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		ui_dialogchoo.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialogchoo.o ../Suduku/dialogchoo.cpp
+
+qrc_numbers.o: qrc_numbers.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_numbers.o qrc_numbers.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_dialogchoo.o: moc_dialogchoo.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dialogchoo.o moc_dialogchoo.cpp
 
 ####### Install
 

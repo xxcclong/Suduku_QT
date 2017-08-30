@@ -1,4 +1,5 @@
-
+#ifndef SUDU
+#define SUDU
 
 
 class sudu
@@ -48,3 +49,4 @@ public:
     void form(int i  = 1);
 	void readin();
 };
+#endif

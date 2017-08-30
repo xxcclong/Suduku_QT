@@ -1,14 +1,18 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "26F03F3113CE5152249A98C682BDFD4249913739",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "26F03F3113CE5152249A98C682BDFD4249913739+++1F9A481",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "26F03F3113CE5152249A98C682BDFD4249913739" : 9223372036854775807
+    "26F03F3113CE5152249A98C682BDFD4249913739+++1F9A481" : 9223372036854775807,
+    "26F03F3113CE5152249A98C682BDFD4249913739+++0F79EC1" : 9223372036854775807,
+    "26F03F3113CE5152249A98C682BDFD4249913739+++EA1BA28" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "07FB5111-0289-41A9-BA6F-96669203751F",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "26F03F3113CE5152249A98C682BDFD4249913739" : ""
+    "26F03F3113CE5152249A98C682BDFD4249913739+++1F9A481" : "Suduku_QT\/",
+    "26F03F3113CE5152249A98C682BDFD4249913739+++0F79EC1" : "",
+    "26F03F3113CE5152249A98C682BDFD4249913739+++EA1BA28" : ""
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "sudukuxcode",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -17,12 +21,17 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/xxcclong\/Suduku_QT.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "26F03F3113CE5152249A98C682BDFD4249913739"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "26F03F3113CE5152249A98C682BDFD4249913739+++0F79EC1"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/xxcclong\/Suduku_QT.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "26F03F3113CE5152249A98C682BDFD4249913739"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "26F03F3113CE5152249A98C682BDFD4249913739+++1F9A481"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/xxcclong\/Suduku_QT.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "26F03F3113CE5152249A98C682BDFD4249913739+++EA1BA28"
     }
   ]
 }

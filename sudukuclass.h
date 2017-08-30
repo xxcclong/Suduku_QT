@@ -8,6 +8,7 @@ private:
 	int step;
 	int small;
 	int smallx,smally;
+	int whole;
 
 public:
 	struct point
@@ -37,6 +38,7 @@ public:
 		small = 9;
 		smallx = smally =0;
 	}
+	int find_grid(int,int);
 	int deny(const int,const int,const int,bool);
 	int test(int,int);
 	void debug_print()

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[10];
-    char stringdata0[60];
+    QByteArrayData data[21];
+    char stringdata0[146];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,16 +33,29 @@ QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 7), // "newgame"
 QT_MOC_LITERAL(2, 19, 0), // ""
 QT_MOC_LITERAL(3, 20, 4), // "open"
-QT_MOC_LITERAL(4, 25, 4), // "save"
-QT_MOC_LITERAL(5, 30, 6), // "saveas"
-QT_MOC_LITERAL(6, 37, 5), // "about"
-QT_MOC_LITERAL(7, 43, 4), // "easy"
-QT_MOC_LITERAL(8, 48, 6), // "middle"
-QT_MOC_LITERAL(9, 55, 4) // "hard"
+QT_MOC_LITERAL(4, 25, 7), // "showdia"
+QT_MOC_LITERAL(5, 33, 1), // "i"
+QT_MOC_LITERAL(6, 35, 4), // "save"
+QT_MOC_LITERAL(7, 40, 6), // "saveas"
+QT_MOC_LITERAL(8, 47, 5), // "about"
+QT_MOC_LITERAL(9, 53, 4), // "easy"
+QT_MOC_LITERAL(10, 58, 6), // "middle"
+QT_MOC_LITERAL(11, 65, 4), // "hard"
+QT_MOC_LITERAL(12, 70, 4), // "fill"
+QT_MOC_LITERAL(13, 75, 1), // "x"
+QT_MOC_LITERAL(14, 77, 1), // "y"
+QT_MOC_LITERAL(15, 79, 3), // "num"
+QT_MOC_LITERAL(16, 83, 14), // "mouseMoveEvent"
+QT_MOC_LITERAL(17, 98, 12), // "QMouseEvent*"
+QT_MOC_LITERAL(18, 111, 5), // "event"
+QT_MOC_LITERAL(19, 117, 21), // "on_pushButton_clicked"
+QT_MOC_LITERAL(20, 139, 6) // "setico"
 
     },
-    "MainWindow\0newgame\0\0open\0save\0saveas\0"
-    "about\0easy\0middle\0hard"
+    "MainWindow\0newgame\0\0open\0showdia\0i\0"
+    "save\0saveas\0about\0easy\0middle\0hard\0"
+    "fill\0x\0y\0num\0mouseMoveEvent\0QMouseEvent*\0"
+    "event\0on_pushButton_clicked\0setico"
 };
 #undef QT_MOC_LITERAL
 
@@ -52,7 +65,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -60,24 +73,36 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   54,    2, 0x08 /* Private */,
-       3,    0,   55,    2, 0x08 /* Private */,
-       4,    0,   56,    2, 0x08 /* Private */,
-       5,    0,   57,    2, 0x08 /* Private */,
-       6,    0,   58,    2, 0x08 /* Private */,
-       7,    0,   59,    2, 0x08 /* Private */,
-       8,    0,   60,    2, 0x08 /* Private */,
-       9,    0,   61,    2, 0x08 /* Private */,
+       1,    0,   84,    2, 0x08 /* Private */,
+       3,    0,   85,    2, 0x08 /* Private */,
+       4,    1,   86,    2, 0x08 /* Private */,
+       4,    0,   89,    2, 0x28 /* Private | MethodCloned */,
+       6,    0,   90,    2, 0x08 /* Private */,
+       7,    0,   91,    2, 0x08 /* Private */,
+       8,    0,   92,    2, 0x08 /* Private */,
+       9,    0,   93,    2, 0x08 /* Private */,
+      10,    0,   94,    2, 0x08 /* Private */,
+      11,    0,   95,    2, 0x08 /* Private */,
+      12,    3,   96,    2, 0x08 /* Private */,
+      16,    1,  103,    2, 0x08 /* Private */,
+      19,    0,  106,    2, 0x08 /* Private */,
+      20,    2,  107,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    5,
+    QMetaType::Void,
     QMetaType::Bool,
     QMetaType::Bool,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,   13,   14,   15,
+    QMetaType::Void, 0x80000000 | 17,   18,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
 
        0        // eod
 };
@@ -90,14 +115,20 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->newgame(); break;
         case 1: _t->open(); break;
-        case 2: { bool _r = _t->save();
+        case 2: _t->showdia((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->showdia(); break;
+        case 4: { bool _r = _t->save();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 3: { bool _r = _t->saveas();
+        case 5: { bool _r = _t->saveas();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 4: _t->about(); break;
-        case 5: _t->easy(); break;
-        case 6: _t->middle(); break;
-        case 7: _t->hard(); break;
+        case 6: _t->about(); break;
+        case 7: _t->easy(); break;
+        case 8: _t->middle(); break;
+        case 9: _t->hard(); break;
+        case 10: _t->fill((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 11: _t->mouseMoveEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 12: _t->on_pushButton_clicked(); break;
+        case 13: _t->setico((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         default: ;
         }
     }
@@ -128,13 +159,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 14)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 8;
+        _id -= 14;
     }
     return _id;
 }
