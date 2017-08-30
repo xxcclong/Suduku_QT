@@ -1,11 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include "sudukuclass.h"
 #include <QMainWindow>
 #include <QDebug>
 #include <QMenuBar>
 #include <QAction>
 #include <QActionGroup>
+#include <QPushButton>
+#include <QVBoxLayout>
 class QAction;
 class Qlabel;
 namespace Ui {
@@ -35,6 +37,9 @@ private:
     Ui::MainWindow *ui;
     void createMenus();
     void createActions();
+    sudu* MainSudu;
+    QVBoxLayout *l;
+    QPushButton* but;
     QMenu *fileMenu;
     QMenu *infoMenu;
     QMenu* difficulty;

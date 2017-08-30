@@ -42,7 +42,7 @@ void sudu::debug_print_seq()//    print the whole pic to debug
 }
 
 
-void sudu::form()
+void sudu::form(int i)
 {
     int all = 20;
     while(all)
@@ -55,6 +55,8 @@ void sudu::form()
         if(ans > 0)
             --all;
     }
+
+
 }
 
 
@@ -90,6 +92,7 @@ void sudu::readin()
 
 int sudu::test(int x,int y)
 {
+    //cout<<x<<'+'<<y<<endl;
     if(whole == 333)
         return 333;
     for (int i=1;i<=9;++i)
@@ -149,7 +152,8 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
     ++step;
     g[x][y].sequence = step;
     --sum;
-    
+    cout<<x<<' '<<y<<' '<<Num<<endl;
+    cout<<sum<<endl;
     if(!sum)
     {
         cout<<"the final answer"<<endl;

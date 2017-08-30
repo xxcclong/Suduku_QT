@@ -4,13 +4,13 @@
 class sudu
 {
 private:
-	int sum;
-	int step;
-	int small;
-	int smallx,smally;
+    int small;
     int whole;
 
 public:
+    int sum;
+    int step;
+    int smallx,smally;
 	struct point
 	{
     	int num;
@@ -33,7 +33,7 @@ public:
 	}g[10][10];
     sudu()
     {
-        sum = 91;
+        sum = 81;
         step = 0;
         small = 9;
         smallx = smally = 0;
@@ -45,6 +45,6 @@ public:
 	int test(int,int);
     void debug_print();
 	void debug_print_seq();
-	void form();
+    void form(int i  = 1);
 	void readin();
 };

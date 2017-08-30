@@ -1,10 +1,18 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    but = new QPushButton;
+
+
+
+   // but->setGeometry(30,40,50,60);
+    but->setText("haha");
+    but->show();
+
 
     ui->setupUi(this);
     MainSudu = new sudu;
@@ -21,8 +29,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::newgame()
 {
-    qDebug()<<difficultynum;
+    MainSudu->form();
+    MainSudu->debug_print();
+    MainSudu->test(MainSudu->smallx,MainSudu->smally);
+    but->setText("xixi");
+    but->setDisabled(true);
     return;//    start different games according to d..
+
 }
 
 
