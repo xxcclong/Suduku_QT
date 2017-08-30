@@ -2,7 +2,7 @@
 #define DIALOGCHOO_H
 
 #include <QDialog>
-
+#include <QKeyEvent>
 namespace Ui {
 class DialogChoo;
 }
@@ -16,6 +16,7 @@ public:
     DialogChoo(QWidget *parent = 0, int i =0);
     ~DialogChoo();
     int now;
+    void keyPressEvent(QKeyEvent *e);
 
 
 private slots:
@@ -42,7 +43,7 @@ private slots:
     void on_pushButton_11_clicked();
 
 private:
-
+    bool useful[10];
     Ui::DialogChoo *ui;
 };
 

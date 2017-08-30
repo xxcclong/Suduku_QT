@@ -9,8 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
     widget->setMouseTracking(true);
     this->setMouseTracking(true);
     //m = new QSignalMapper(this);
-
-
+    memset(wrong,0,sizeof(wrong));
+    chance = 0;
 
    // but = new QPushButton;
     //connect(but,SIGNAL(clicked(bool)),this,SLOT(showdia()));
@@ -32,15 +32,42 @@ MainWindow::MainWindow(QWidget *parent) :
     ico[9] = new QIcon(":/new/prefix1/9.png");
     ico[0] = new QIcon(":/new/prefix1/0.png");
 
+    ico[11] = new QIcon(":/g1.png");
+    ico[12] = new QIcon(":/g2.png");
+    ico[13] = new QIcon(":/g3.png");
+    ico[14] = new QIcon(":/g5.png");
+    ico[15] = new QIcon(":/g4.png");
+    ico[16] = new QIcon(":/g6.png");
+    ico[17] = new QIcon(":/g7.png");
+    ico[18] = new QIcon(":/g8.png");
+    ico[19] = new QIcon(":/g9.png");
+
+    ico[21] = new QIcon(":/s1.png");
+    ico[22] = new QIcon(":/s2.png");
+    ico[23] = new QIcon(":/s3.png");
+    ico[24] = new QIcon(":/s4.png");
+    ico[25] = new QIcon(":/s5.png");
+    ico[26] = new QIcon(":/s6.png");
+    ico[27] = new QIcon(":/s7.png");
+    ico[28] = new QIcon(":/s8.png");
+    ico[29] = new QIcon(":/s9.png");
+
+
+
     //":/new/prefix1/1/png"
 
     //labpix = labpix.scaled()
     G = new QGridLayout();
     for(int i=1;i<=81;++i)
     {
-        lab[i] = new QPushButton(*ico[1], "", widget);
-        lab[i]->setIconSize(QSize(50, 50));
+        //lab[i] = new QPushButton(*ico[0], "", widget);
+        lab[i] = new QPushButton;
+        setico(i,0);
+        lab[i]->setMouseTracking(true);
+
             lab[i]->setFixedSize(50,50);
+
+            lab[i]->setEnabled(false);
 
 
       //  lab[i]->setScaledContents(true);
@@ -78,14 +105,44 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 void MainWindow::showdia(int i)
 {
-    qDebug()<<"dasda";
+
     DialogChoo diaa(this,i);
     //dia = new DialogChoo(this,i);
+
     diaa.setGeometry(mousex,mousey,161,141);
     diaa.exec();
     if(i == -1)
         return;
     setico(i,diaa.now);
+    if(diaa.now == -1)
+        return;
+    out[(i-1)/9+1][(i-1)%9+1] = diaa.now;
+    if(!diaa.now)
+    {
+        if(wrong[i])
+        {
+            wrong[i] = 0;
+            --chance;
+        }
+    }
+    else if(MainSudu->right[(i-1)/9+1][(i-1)%9+1] != diaa.now)
+    {
+        if(!wrong[i])
+        {
+            ++chance;
+            wrong[i] = 1;
+        }
+    }
+    else
+    {
+        if(wrong[i])
+        {
+            --chance;
+            wrong[i] = 0;
+        }
+    }
+    qDebug()<<chance;//<<chance<<' '<<(i-1)/9+1<<' '<<(i-1)&9+1;
+
 }
 
 MainWindow::~MainWindow()
@@ -96,11 +153,38 @@ MainWindow::~MainWindow()
 
 void MainWindow::newgame()
 {
+    finalone = NULL;
+    MainSudu->node = new sudu::tree;
+    MainSudu->clear();
+    for(int i = 1;i <= 81;++i)
+    {
+        lab[i]->setEnabled(true);
+        wrong[i] = 0;
+
+    }
+    chance = 0;
     MainSudu->form();
-    MainSudu->debug_print();
+    finalone = MainSudu->finalone;
     MainSudu->test(MainSudu->smallx,MainSudu->smally);
-    but->setText("xixi");
-    but->setDisabled(true);
+    while((finalone->depth-30)>((4-difficultynum)*8))
+    {
+        qDebug()<<100;
+        finalone = finalone->former;
+    }
+    while(finalone->depth>30)
+    {
+        qDebug()<<200;
+        int xx = finalone->px;
+        int yy = finalone->py;
+        int numnum = finalone->pnum;
+        MainSudu->g[xx][yy].num = numnum;
+        finalone = finalone->former;
+    }
+    for(int i = 1;i<=9;++i)
+        for(int j = 1;j<=9;++j)
+            setico(9*(i-1)+j,MainSudu->g[i][j].num,1);
+
+
     return;//    start different games according to d..
 
 }/*
@@ -122,7 +206,7 @@ void MainWindow::mouseMoveEvent ( QMouseEvent * e )//鼠标移动事件响应
 
 mousex = e->globalPos().x();
 mousey = e->globalPos().y();
-qDebug()<<mousex<<mousey;
+//qDebug()<<mousex<<mousey;
 //labelMousePos ->setText("("+QString::number(coursePoint.x())+","+QString::number(coursePoint.y())+")");
 
 }
@@ -192,10 +276,13 @@ void MainWindow::createActions()
 
     easyAction = new QAction(tr("easy"),this);
     easyAction ->setCheckable(true);
+    easyAction->setShortcut(tr("Ctrl+1"));
     middleAction = new QAction(tr("middle"),this);
     middleAction ->setCheckable(true);
+    middleAction->setShortcut(tr("Ctrl+2"));
     hardAction = new QAction(tr("hard"),this);
     hardAction ->setCheckable(true);
+    hardAction->setShortcut(tr("Ctrl+3"));
 
     connect(easyAction,SIGNAL(triggered()),this,SLOT(easy()));
     connect(middleAction,SIGNAL(triggered()),this,SLOT(middle()));
@@ -226,6 +313,11 @@ void MainWindow::createMenus()
     fileMenu -> addAction(saveAction);
     fileMenu -> addAction(saveasAction);
 
+
+    difficulty = menuBar() ->addMenu(tr("&Difficulty"));
+    difficulty -> addAction(easyAction);
+    difficulty -> addAction(middleAction);
+    difficulty -> addAction(hardAction);
     infoMenu = menuBar() -> addMenu(tr("&Info"));
     infoMenu -> addAction(aboutAction);
 
@@ -250,13 +342,26 @@ void MainWindow::fill(int x,int y,int num)
 
 void MainWindow::on_pushButton_clicked()
 {
-    qDebug()<<"sada";
+   // qDebug()<<"sada";
     return;
 }
 
-void MainWindow::setico(int labnum,int iconum)
+void MainWindow::setico(int labnum, int iconum, int input)
 {
     if(iconum == -1)
         return;
+    lab[labnum]->setIconSize(QSize(43, 42));
+    if(input&&iconum)
+    {
+        lab[labnum]->setEnabled(false);
+        iconum += 20 ;
+    }
+
+    if(!iconum)
+    {
+        iconum = ((labnum-1)%9)/3+1+((((labnum-1)/9))/3)*3+10;
+        lab[labnum]->setIconSize(QSize(30, 30));
+       // qDebug()<<iconum;
+    }
     lab[labnum]->setIcon(*ico[iconum]);
 }

@@ -590,6 +590,24 @@ compiler_rcc_make_all: qrc_numbers.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_numbers.cpp
 qrc_numbers.cpp: ../Suduku/numbers/numbers.qrc \
+		../Suduku/numbers/g1.png \
+		../Suduku/numbers/g2.png \
+		../Suduku/numbers/g3.png \
+		../Suduku/numbers/s1.png \
+		../Suduku/numbers/g4.png \
+		../Suduku/numbers/s2.png \
+		../Suduku/numbers/s3.png \
+		../Suduku/numbers/g5.png \
+		../Suduku/numbers/s4.png \
+		../Suduku/numbers/g6.png \
+		../Suduku/numbers/s5.png \
+		../Suduku/numbers/g7.png \
+		../Suduku/numbers/s6.png \
+		../Suduku/numbers/g8.png \
+		../Suduku/numbers/s7.png \
+		../Suduku/numbers/g9.png \
+		../Suduku/numbers/s8.png \
+		../Suduku/numbers/s9.png \
 		../Suduku/numbers/2.png \
 		../Suduku/numbers/6.png \
 		../Suduku/numbers/1.png \
@@ -630,14 +648,21 @@ moc_mainwindow.cpp: ../Suduku/sudukuclass.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QIcon \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qicon.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QSignalMapper \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qsignalmapper.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../Suduku/dialogchoo.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QDialog \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
 		../Suduku/mainwindow.h
 	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/hkz/Qt5.6.2/5.6/clang_64/mkspecs/macx-clang -I/Users/hkz/study/GIthub/Suduku_QT/Suduku -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers -I. -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib ../Suduku/mainwindow.h -o moc_mainwindow.cpp
 
 moc_dialogchoo.cpp: ../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QDialog \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../Suduku/dialogchoo.h
 	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/hkz/Qt5.6.2/5.6/clang_64/mkspecs/macx-clang -I/Users/hkz/study/GIthub/Suduku_QT/Suduku -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers -I. -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib ../Suduku/dialogchoo.h -o moc_dialogchoo.cpp
 
@@ -690,9 +715,14 @@ main.o: ../Suduku/main.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QIcon \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qicon.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QSignalMapper \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qsignalmapper.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../Suduku/dialogchoo.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QDialog \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Suduku/main.cpp
@@ -723,9 +753,14 @@ mainwindow.o: ../Suduku/mainwindow.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QIcon \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qicon.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QSignalMapper \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qsignalmapper.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../Suduku/dialogchoo.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QDialog \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Suduku/mainwindow.cpp
 
@@ -738,6 +773,8 @@ choosedia.o: ../Suduku/choosedia.cpp
 dialogchoo.o: ../Suduku/dialogchoo.cpp ../Suduku/dialogchoo.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QDialog \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		ui_dialogchoo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialogchoo.o ../Suduku/dialogchoo.cpp
 

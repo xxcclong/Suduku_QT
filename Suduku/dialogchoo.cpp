@@ -6,7 +6,13 @@ DialogChoo::DialogChoo(QWidget *parent) :
     ui(new Ui::DialogChoo)
 {
 
-    this->setWindowFlags(Qt::Dialog| Qt::FramelessWindowHint);
+    //this->setWindowFlags(Qt::Dialog| Qt::FramelessWindowHint);
+
+
+    //this->setAttribute(Qt::WA_TranslucentBackground);
+    this->setWindowFlags(this->windowFlags() | Qt::FramelessWindowHint);
+    //this->setStyleSheet("QDialog{background-color: transparent;}");
+    this->setWindowOpacity(0.7);
     ui->setupUi(this);
 }
 DialogChoo::DialogChoo(QWidget *parent,int i):QDialog(parent),ui(new Ui::DialogChoo)
@@ -78,3 +84,20 @@ void DialogChoo::on_pushButton_11_clicked()
 {
     accept();
 }
+
+
+void DialogChoo::keyPressEvent(QKeyEvent *e)
+{
+
+    if(e->key()==Qt::Key_1)//判断键值，此处以S键为例
+    {
+
+          //do something
+    }
+    if(e->key()==Qt::Key_2)//判断键值，此处以S键为例
+    {
+          //do something
+    }
+
+}
+

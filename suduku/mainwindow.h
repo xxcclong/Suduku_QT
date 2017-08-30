@@ -44,9 +44,17 @@ private slots:
     void fill(int x,int y,int num);
     void mouseMoveEvent(QMouseEvent *event);
     void on_pushButton_clicked();
-    void setico(int,int);
+    void setico(int,int,int input = 0);
 
 private:
+    // connected with inside game
+    int wrong[82];
+    int chance;// next step  all steps
+    int out[10][10];
+
+
+
+    sudu::tree* finalone;
    // QSignalMapper *m;
     int mousex,mousey;
     void createMenus();
@@ -68,7 +76,7 @@ private:
     QAction *aboutAction;
     QAction *saveAction;
     QAction *saveasAction;
-    QIcon* ico[10];
+    QIcon* ico[30];
 
 };
 

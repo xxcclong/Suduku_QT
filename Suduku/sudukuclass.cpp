@@ -44,7 +44,12 @@ void sudu::debug_print_seq()//    print the whole pic to debug
 
 void sudu::form(int i)
 {
-    int all = 20;
+    srand((int)time(0));
+
+    while(true)
+    {
+
+    int all = 30;
     while(all)
     {
         int tempx = rand()%9 + 1;
@@ -55,10 +60,40 @@ void sudu::form(int i)
         if(ans > 0)
             --all;
     }
-
-
+        debug_print();
+        test(smallx,smally);
+        cout<<"***********"<<node->down<<endl;
+        cout<<node->depth<<endl;
+        if(node->down == 1)
+            break;
+        clear();
+    }
 }
 
+
+void sudu::clear()
+{
+    node = new tree;
+    step = 0;
+    sum = 81;
+     small = 9;
+     smallx = 0,smally = 0;
+    for(int i = 0;i<=9;++i)
+        for(int j =0;j<=9;++j)
+    {
+        for(int d = 0;d<=9;++d)
+            g[i][j].ok[d] = true;
+        g[i][j].sequence = -1;
+        g[i][j].num = 0;
+
+
+        g[i][j].posibles =9;
+        g[i][j].least = false;
+        g[i][j].changed = false;
+
+
+    }
+}
 
 
 void sudu::readin()
@@ -91,36 +126,31 @@ void sudu::readin()
 }
 
 int sudu::test(int x,int y)
+
+
 {
-    //cout<<x<<'+'<<y<<endl;
-    if(whole == 333)
-        return 333;
-    for (int i=1;i<=9;++i)
-    {
-        for(int j = 1;j<=9;++j)
-            g[i][j].changed = false;
-    }
+
+
     if(x*y==0)
     {
-        cout<<"going out of the graph"<<endl;
+       // cout<<"going out of the graph"<<endl;
         return -1;
     }
+
+
     for(int i=1;i<=9;++i)
     {
         if(g[x][y].ok[i])
-           whole = deny(x,y,i,0);
-        if(whole == 333)
-            return 333;
+           deny(x,y,i,0);
     }
     return 0;
     /*
-     
+
      let all row column and grid elements delete the Num
      and then
      1. chhoose the least one to be the new one
      solve the new one
      2. find that somebody is 0 so we have to go back*/
-    return 0;
 }
 
 
@@ -129,17 +159,20 @@ int sudu::test(int x,int y)
 
 int sudu::deny(const int x,const int y,const int Num,bool input)
 {
-    
+
     if(g[x][y].ok[Num]==false||g[x][y].num)
         return -369;//               when forming the graph ,if it is occupied, return 369 to change another one
-    
-    
-    
+
+
+
+
+
+
     bool changed[10][10];
     for(int i=1;i<=9;++i)
         for(int j =1;j<=9;++j)
             changed[i][j] = 0;
-    
+
     int success = 1;
     if(!input)
     {
@@ -147,24 +180,51 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
         smallx = 0;
         smally = 0;
     }
-    
+
     g[x][y].num = Num;
     ++step;
+
+    node->next[++(node->who)] = new tree(x,y,Num,step);
+    node->next[node->who]->former = node;
+    if(!node->px)
+        node->next[node->who]->former = NULL;
+    node = node->next[node->who];
+
+
     g[x][y].sequence = step;
     --sum;
-    cout<<x<<' '<<y<<' '<<Num<<endl;
-    cout<<sum<<endl;
+    //cout<<sum<<endl;
+    //debug_print();
+    //cout<<x<<' '<<y<<' '<<Num<<endl;
+    //cout<<sum<<endl;
     if(!sum)
     {
-        cout<<"the final answer"<<endl;
+       // cout<<"the final answer"<<endl;
         debug_print();
-        whole = 333;
+        for(int i=1;i<=9;++i)
+            for(int j =1;j<=9;++j)
+                right[i][j] = g[i][j].num;
+        tree* tempnode = node;
+        finalone = node;
+        while(tempnode->former!=NULL)
+        {
+            tempnode->down += 1;
+            tempnode = tempnode->former;
+        }
+        tempnode->down+=1;
+
+        node = node->former;
+        --step;
+        g[x][y].sequence = -1;
+        ++sum;
+        g[x][y].num = 0;
+        return 0;
         //while(true)
           //  cout<<endl;
-        return 333;
+
     }
-    
-    
+
+
     for(int i = 1;i<=9;++i)
     {
         // ??????????????????????????????????????????????????// ??????????????????????????????????????????????????// ??????????????????????????????????????????????????
@@ -175,8 +235,8 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
                 g[x][i].ok[Num] = false;
                 changed[x][i] = true;
                 --g[x][i].posibles;
-                
-                
+
+
                 if(g[x][i].posibles>=1)
                 {
                     if(g[x][i].posibles<small)
@@ -186,12 +246,12 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
                         g[smallx][smally].least = false;
                         smallx = x;
                         smally = i;
-                        
+
                     }
                 }
                 else
                 {
-                    cout<<"have no answer row"<<x<<' '<<i<<endl;
+                    //cout<<"have no answer row"<<x<<' '<<i<<endl;
                     success = false;
                 }
             }
@@ -206,12 +266,12 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
                         g[smallx][smally].least = false;
                         smallx = x;
                         smally = i;
-                        
+
                     }
                 }
                 else
                 {
-                    cout<<"have no answer row"<<x<<' '<<i<<endl;
+                   // cout<<"have no answer row"<<x<<' '<<i<<endl;
                     success = false;
                 }
             }
@@ -231,7 +291,7 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
              }
              }
              }*/
-            
+
         }
         if(!g[i][y].num)
         {
@@ -270,7 +330,7 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
                 }
                 else
                 {
-                    cout<<"no answer column"<<i<<' '<<y<<endl;
+                  //  cout<<"no answer column"<<i<<' '<<y<<endl;
                     success = false;
                 }
             }
@@ -289,10 +349,10 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
                 }
                 else
                 {
-                    cout<<"no answer column"<<i<<' '<<y<<endl;
+                  //  cout<<"no answer column"<<i<<' '<<y<<endl;
                     success = false;
                 }
-                
+
             }
 
         }
@@ -332,7 +392,7 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
                     }
                     else
                     {
-                        cout<<"no answer(grid)"<<i<<' '<<j<<endl;
+                       // cout<<"no answer(grid)"<<i<<' '<<j<<endl;
                         success = false;
                     }
                 }
@@ -351,7 +411,7 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
                     }
                     else
                     {
-                        cout<<"no answer(grid)"<<i<<' '<<j<<endl;
+                      //  cout<<"no answer(grid)"<<i<<' '<<j<<endl;
                         success = false;
                     }
                 }
@@ -360,13 +420,14 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
     if(input&&success)
         return 666;
     if(input&&!success)
-        
+
     {
+        node = node->former;
         --step;
         g[x][y].sequence = -1;
         ++sum;
         g[x][y].num = 0;
-        
+
         for(int i = 1;i<=9;++i)
         {
             if(changed[x][i])
@@ -393,29 +454,44 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
                     g[i][j].ok[Num] = true;
                 }
             }
-        cout<<"input has problem"<<endl;
+       // cout<<"input has problem"<<endl;
         return -369;
     }
    // debug_print();
     //cout<<x<<"******** regular"<<y<<endl;
-    
-    
+
+    if(smallx*smally == 0)
+    {
+        for(int i=1;i<=9;++i)
+            for(int j = 1;j<=9;++j)
+            {
+                if(!g[i][j].num)
+                {
+                    if(g[i][j].posibles<=small)
+                    {
+                        smallx = i;
+                        smally = j;
+                        small = g[i][j].posibles;
+                    }
+                }
+            }
+    }
+
     if(success)
         success = test(smallx,smally);
-    if(success==333)
-        return 333;
-    
+
+
     if(!success)
     {
       //  cout<<"worong!!!!!"<<endl;
        // cout<<x<<"   cuo     "<<y<<endl;
+        node = node->former;
 
-        
         --step;
         g[x][y].sequence = -1;
         ++sum;
         g[x][y].num = 0;
-        
+
         for(int i = 1;i<=9;++i)
         {
             if(changed[x][i])
@@ -443,7 +519,10 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
                 }
             }
     }
-    
+
     return 0;
 }
+
+
+
 

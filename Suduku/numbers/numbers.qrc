@@ -11,4 +11,24 @@
         <file>1.png</file>
         <file>0.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>g4.png</file>
+        <file>g3.png</file>
+        <file>g1.png</file>
+        <file>g2.png</file>
+        <file>g6.png</file>
+        <file>g7.png</file>
+        <file>g5.png</file>
+        <file>g8.png</file>
+        <file>g9.png</file>
+        <file>s9.png</file>
+        <file>s8.png</file>
+        <file>s7.png</file>
+        <file>s6.png</file>
+        <file>s5.png</file>
+        <file>s4.png</file>
+        <file>s3.png</file>
+        <file>s2.png</file>
+        <file>s1.png</file>
+    </qresource>
 </RCC>

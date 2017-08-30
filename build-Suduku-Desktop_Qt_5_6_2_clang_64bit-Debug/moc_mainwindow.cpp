@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[21];
-    char stringdata0[146];
+    QByteArrayData data[22];
+    char stringdata0[152];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -49,13 +49,15 @@ QT_MOC_LITERAL(16, 83, 14), // "mouseMoveEvent"
 QT_MOC_LITERAL(17, 98, 12), // "QMouseEvent*"
 QT_MOC_LITERAL(18, 111, 5), // "event"
 QT_MOC_LITERAL(19, 117, 21), // "on_pushButton_clicked"
-QT_MOC_LITERAL(20, 139, 6) // "setico"
+QT_MOC_LITERAL(20, 139, 6), // "setico"
+QT_MOC_LITERAL(21, 146, 5) // "input"
 
     },
     "MainWindow\0newgame\0\0open\0showdia\0i\0"
     "save\0saveas\0about\0easy\0middle\0hard\0"
     "fill\0x\0y\0num\0mouseMoveEvent\0QMouseEvent*\0"
-    "event\0on_pushButton_clicked\0setico"
+    "event\0on_pushButton_clicked\0setico\0"
+    "input"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,7 +67,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      15,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -73,20 +75,21 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   84,    2, 0x08 /* Private */,
-       3,    0,   85,    2, 0x08 /* Private */,
-       4,    1,   86,    2, 0x08 /* Private */,
-       4,    0,   89,    2, 0x28 /* Private | MethodCloned */,
-       6,    0,   90,    2, 0x08 /* Private */,
-       7,    0,   91,    2, 0x08 /* Private */,
-       8,    0,   92,    2, 0x08 /* Private */,
-       9,    0,   93,    2, 0x08 /* Private */,
-      10,    0,   94,    2, 0x08 /* Private */,
-      11,    0,   95,    2, 0x08 /* Private */,
-      12,    3,   96,    2, 0x08 /* Private */,
-      16,    1,  103,    2, 0x08 /* Private */,
-      19,    0,  106,    2, 0x08 /* Private */,
-      20,    2,  107,    2, 0x08 /* Private */,
+       1,    0,   89,    2, 0x08 /* Private */,
+       3,    0,   90,    2, 0x08 /* Private */,
+       4,    1,   91,    2, 0x08 /* Private */,
+       4,    0,   94,    2, 0x28 /* Private | MethodCloned */,
+       6,    0,   95,    2, 0x08 /* Private */,
+       7,    0,   96,    2, 0x08 /* Private */,
+       8,    0,   97,    2, 0x08 /* Private */,
+       9,    0,   98,    2, 0x08 /* Private */,
+      10,    0,   99,    2, 0x08 /* Private */,
+      11,    0,  100,    2, 0x08 /* Private */,
+      12,    3,  101,    2, 0x08 /* Private */,
+      16,    1,  108,    2, 0x08 /* Private */,
+      19,    0,  111,    2, 0x08 /* Private */,
+      20,    3,  112,    2, 0x08 /* Private */,
+      20,    2,  119,    2, 0x28 /* Private | MethodCloned */,
 
  // slots: parameters
     QMetaType::Void,
@@ -102,6 +105,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,   13,   14,   15,
     QMetaType::Void, 0x80000000 | 17,   18,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,    2,    2,   21,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
 
        0        // eod
@@ -128,7 +132,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 10: _t->fill((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
         case 11: _t->mouseMoveEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
         case 12: _t->on_pushButton_clicked(); break;
-        case 13: _t->setico((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 13: _t->setico((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 14: _t->setico((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         default: ;
         }
     }
@@ -159,13 +164,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 15)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 15;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 15)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 14;
+        _id -= 15;
     }
     return _id;
 }
