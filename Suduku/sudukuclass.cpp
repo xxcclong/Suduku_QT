@@ -156,7 +156,6 @@ int sudu::test(int x,int y)
 
 
 
-
 int sudu::deny(const int x,const int y,const int Num,bool input)
 {
 
@@ -183,7 +182,21 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
 
     g[x][y].num = Num;
     ++step;
-
+    if(input&&smallx==x&&smally==y)
+    {
+        smallx = smally =0;
+        small = 9;
+        for(int i=1;i<=9;++i)
+            for(int j =1;j<=9;++j)
+            {
+                if(g[i][j].num==0&&g[i][j].posibles<small)
+                {
+                    smallx = i;
+                    smally = j;
+                    small = g[i][j].posibles;
+                }
+            }
+    }
     node->next[++(node->who)] = new tree(x,y,Num,step);
     node->next[node->who]->former = node;
     if(!node->px)

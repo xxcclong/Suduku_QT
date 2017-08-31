@@ -11,7 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //m = new QSignalMapper(this);
     memset(wrong,0,sizeof(wrong));
     chance = 0;
-
+    alll = 81;
+    started = 0;
     //QString fileName = QFileDialog::getOpenFileName(this,"Choose Image","x:/image",("Image File(*.*)")) ;
 
     ico[1] = new QIcon(":/new/prefix1/1.png");
@@ -72,7 +73,9 @@ MainWindow::MainWindow(QWidget *parent) :
         G->addWidget(lab[i],(i-1)/9,(i-1)%9,1,1);
         //lab[i]->show();
     }
-
+    time = new QLabel;
+    G -> addWidget(time,9,0,1,9);
+    time->setAlignment(Qt::Alignment (Qt::AlignHCenter));
 
     for(int i=1;i<=81;++i)
     {
@@ -128,7 +131,7 @@ void MainWindow::showdia(int i)
     diaa.exec();
     if(i == -1)
         return;
-    setico(i,diaa.now);
+
     if(diaa.now == -1)
         return;
     out[(i-1)/9+1][(i-1)%9+1] = diaa.now;
@@ -156,7 +159,8 @@ void MainWindow::showdia(int i)
             wrong[i] = 0;
         }
     }
-    qDebug()<<chance;//<<chance<<' '<<(i-1)/9+1<<' '<<(i-1)&9+1;
+    setico(i,diaa.now);
+    //qDebug()<<chance;//<<chance<<' '<<(i-1)/9+1<<' '<<(i-1)&9+1;
 
 }
 
@@ -168,9 +172,21 @@ MainWindow::~MainWindow()
 
 void MainWindow::newgame()
 {
+    if(gametimer!=NULL)
+        delete gametimer;
+    time -> setText(QString::number(0,10));
+    gametimer = new QTimer;
+    timenum = 0;
+    gametimer->setInterval(1000);
+    gametimer->start();
+ connect(gametimer,SIGNAL(timeout()),this,SLOT(showtime()));
+    started = true;
     for(int i=1;i<=81;++i)
         for(int j=1;j<=9;++j)
+        {
             marked[i][j] = 0;
+           // out[i][j] = 0;
+        }
     finalone = NULL;
     marknum = 0;//  if it is marked
     MainSudu->node = new sudu::tree;
@@ -182,17 +198,18 @@ void MainWindow::newgame()
 
     }
     chance = 0;
+    alll = 81;
     MainSudu->form();
     finalone = MainSudu->finalone;
-    MainSudu->test(MainSudu->smallx,MainSudu->smally);
+    //MainSudu->test(MainSudu->smallx,MainSudu->smally);
     while((finalone->depth-30)>((4-difficultynum)*8))
     {
-        qDebug()<<100;
+        //qDebug()<<100;
         finalone = finalone->former;
     }
     while(finalone->depth>30)
     {
-        qDebug()<<200;
+       // qDebug()<<200;
         int xx = finalone->px;
         int yy = finalone->py;
         int numnum = finalone->pnum;
@@ -265,7 +282,7 @@ bool MainWindow::save()
     txtOutput.open(":/../../build-Suduku-Desktop_Qt_5_6_2_clang_64bit-Debug/wocaonimabi.txt");
     if(!txtOutput)
     {
-        qDebug()<<"success";
+        //qDebug()<<"success";
     }
     for(int i = 1;i<=9;++i)
     {
@@ -328,6 +345,11 @@ void MainWindow::createActions()
     //newAction -> setStatusTip(tr("create a new game"));
     connect(newAction,SIGNAL(triggered()),this,SLOT(newgame()));
 
+    Stop = new QAction(tr("resume"),this);
+    Stop ->setShortcut(tr("Ctrl+t"));
+    connect(Stop,SIGNAL(triggered()),this,SLOT(stopgame()));
+
+
     openAction = new QAction(tr("open.."),this);
     openAction -> setShortcut((tr("Ctrl+o")));
     connect(openAction,SIGNAL(triggered()),this,SLOT(open()));
@@ -339,6 +361,10 @@ void MainWindow::createActions()
     saveasAction = new QAction(tr("saveas.."),this);
     saveasAction->setShortcut(tr("Shift+Ctrl+s"));
     connect(saveasAction,SIGNAL(triggered()),this,SLOT(saveas()));
+
+    nextAction = new QAction(tr("find next"),this);
+    nextAction->setShortcut(tr("Ctrl+p"));
+    connect(nextAction,SIGNAL(triggered()),this,SLOT(find_next()));
 
 
 
@@ -386,8 +412,16 @@ void MainWindow::createMenus()
     difficulty -> addAction(easyAction);
     difficulty -> addAction(middleAction);
     difficulty -> addAction(hardAction);
+
+    gamemenu = menuBar() ->addMenu(tr("&Game"));
+    gamemenu -> addAction(nextAction);
+    gamemenu -> addAction(Stop);
+
     infoMenu = menuBar() -> addMenu(tr("&Info"));
     infoMenu -> addAction(aboutAction);
+
+
+
 
    // difficulty = menuBar() ->addMenu((tr("&Difficulty")));
 
@@ -415,18 +449,28 @@ void MainWindow::longpress(int i)
        timer->start();
     connect(timer,SIGNAL(timeout()),this,SLOT(longsuccess()));
 
-    qDebug()<<67328144878237893;
+    //qDebug()<<67328144878237893;
 }
 
 void MainWindow::longsuccess()
 {
-    qDebug()<<longbut;
+    //qDebug()<<longbut;
 
     showdia(100+longbut);
 }
 
 void MainWindow::setico(int labnum, int iconum, int input)
 {
+    if(iconum)
+    {
+        --alll;
+    }
+    if(!input&&!iconum)
+    {
+        qDebug()<<"+++";
+        ++alll;
+    }
+    //qDebug()<<labnum<<'*'<<iconum<<'*'<<input;
     if(iconum == -1)
         return;
     lab[labnum]->setIconSize(QSize(43, 42));
@@ -443,6 +487,15 @@ void MainWindow::setico(int labnum, int iconum, int input)
        // qDebug()<<iconum;
     }
     lab[labnum]->setIcon(*ico[iconum]);
+
+    if(!alll)
+    {
+        if(!chance)
+        QMessageBox::information(NULL, "SUDOtree", "Success", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+        else
+            QMessageBox::information(NULL, "SUDOtree", "Some thing wrong", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+        delete gametimer;
+    }
 }
 
 
@@ -472,4 +525,62 @@ void MainWindow::paintEvent(QPaintEvent *ev)
 void MainWindow::mark(int posi,int num)
 {
     marked[posi][num] = !marked[posi][num];
+}
+
+
+void MainWindow::find_next()
+{
+    if(!started)
+        return;
+   // qDebug()<<"fenge";
+    //MainSudu->debug_print();
+    //qDebug()<<"fenge";
+    if(chance)
+    {
+   //     qDebug()<<"no";
+        return;
+    }
+
+    for(int i=1;i<=9;++i)
+    {
+        for(int j=1;j<=9;++j)
+        {
+            if(out[i][j])
+            {
+                std::cout<<out[i][j]<<' ';
+            }
+            else
+                std::cout<<"* ";
+        }
+        std::cout<<std::endl;
+    }
+    MainSudu->clear();
+   //   qDebug()<<MainSudu->smallx<<" "<<MainSudu->smally<<"ooooooooo";
+    for(int i=1;i<=9;++i)
+        for(int j=1;j<=9;++j)
+        {
+            if(out[i][j])
+            {
+                MainSudu->deny(i,j,out[i][j],1);
+            }
+        }
+    //MainSudu->debug_print();
+     out[MainSudu->smallx][MainSudu->smally] = MainSudu->right[MainSudu->smallx][MainSudu->smally];
+   //  qDebug()<< out[MainSudu->smallx][MainSudu->smally];
+    setico(((MainSudu->smallx-1)*9+MainSudu->smally),MainSudu->right[MainSudu->smallx][MainSudu->smally]);
+   // qDebug()<<MainSudu->smallx<<' '<<MainSudu->smally;
+}
+
+
+void MainWindow::showtime()
+{
+    ++timenum;
+    time->setText(QString::number(timenum,10));
+}
+
+void MainWindow::stopgame()
+{
+    gametimer->stop();
+    QMessageBox::information(NULL, "SUDOtree", "Stopped", QMessageBox::Yes , QMessageBox::Yes);
+    gametimer->start();
 }
