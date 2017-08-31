@@ -12,13 +12,6 @@ MainWindow::MainWindow(QWidget *parent) :
     memset(wrong,0,sizeof(wrong));
     chance = 0;
 
-   // but = new QPushButton;
-    //connect(but,SIGNAL(clicked(bool)),this,SLOT(showdia()));
-    //dia = new DialogChoo;
-
-   // but->setGeometry(30,40,50,60);
-
-
     //QString fileName = QFileDialog::getOpenFileName(this,"Choose Image","x:/image",("Image File(*.*)")) ;
 
     ico[1] = new QIcon(":/new/prefix1/1.png");
@@ -30,17 +23,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ico[7] = new QIcon(":/new/prefix1/7.png");
     ico[8] = new QIcon(":/new/prefix1/8.png");
     ico[9] = new QIcon(":/new/prefix1/9.png");
+
     ico[0] = new QIcon(":/new/prefix1/0.png");
 
-    ico[11] = new QIcon(":/g1.png");
-    ico[12] = new QIcon(":/g2.png");
-    ico[13] = new QIcon(":/g3.png");
-    ico[14] = new QIcon(":/g5.png");
-    ico[15] = new QIcon(":/g4.png");
-    ico[16] = new QIcon(":/g6.png");
-    ico[17] = new QIcon(":/g7.png");
-    ico[18] = new QIcon(":/g8.png");
-    ico[19] = new QIcon(":/g9.png");
+    ico[11] = new QIcon(":/g1x.png");
+    ico[12] = new QIcon(":/g2x.png");
+    ico[13] = new QIcon(":/g3x.png");
+    ico[14] = new QIcon(":/g5x.png");
+    ico[15] = new QIcon(":/g4x.png");
+    ico[16] = new QIcon(":/g6x.png");
+    ico[17] = new QIcon(":/g7x.png");
+    ico[18] = new QIcon(":/g8x.png");
+    ico[19] = new QIcon(":/g9x.png");
 
     ico[21] = new QIcon(":/s1.png");
     ico[22] = new QIcon(":/s2.png");
@@ -64,7 +58,10 @@ MainWindow::MainWindow(QWidget *parent) :
         lab[i] = new QPushButton;
         setico(i,0);
         lab[i]->setMouseTracking(true);
+        lab[i]->setStyleSheet("background-color:transparent");
 
+       // lan[i]->setAutoRepeat();
+            //lab[i]->setFlat(true);
             lab[i]->setFixedSize(50,50);
 
             lab[i]->setEnabled(false);
@@ -79,6 +76,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     for(int i=1;i<=81;++i)
     {
+        QSignalMapper* longm = new QSignalMapper;
+        connect(lab[i],SIGNAL(pressed()),longm,SLOT(map()));
+        longm->setMapping(lab[i],i);
+        connect(longm,SIGNAL(mapped(int)),this,SLOT(longpress(int)));
         QSignalMapper* m =new QSignalMapper;
         connect(lab[i], SIGNAL(clicked()), m, SLOT(map()));
         m->setMapping(lab[i],i);
@@ -106,6 +107,20 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::showdia(int i)
 {
 
+    timer->stop();
+    if(i>100)
+    {
+        i-=100;
+        DialogChoo diaa(this,i);
+        diaa.setGeometry(mousex,mousey,161,141);
+        diaa.exec();
+        if(diaa.now <= 0)
+            return;
+        mark(i,diaa.now);
+        return;
+
+
+    }
     DialogChoo diaa(this,i);
     //dia = new DialogChoo(this,i);
 
@@ -153,7 +168,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::newgame()
 {
+    for(int i=1;i<=81;++i)
+        for(int j=1;j<=9;++j)
+            marked[i][j] = 0;
     finalone = NULL;
+    marknum = 0;//  if it is marked
     MainSudu->node = new sudu::tree;
     MainSudu->clear();
     for(int i = 1;i <= 81;++i)
@@ -182,8 +201,10 @@ void MainWindow::newgame()
     }
     for(int i = 1;i<=9;++i)
         for(int j = 1;j<=9;++j)
+        {
             setico(9*(i-1)+j,MainSudu->g[i][j].num,1);
-
+            out[i][j] = MainSudu->g[i][j].num;
+        }
 
     return;//    start different games according to d..
 
@@ -218,6 +239,53 @@ void MainWindow::open()
 
 bool MainWindow::save()
 {
+    /*
+    QFile f("qrc:/../../build-Suduku-Desktop_Qt_5_6_2_clang_64bit-Debug/wocaonimabi.txt");
+    if(!f.open(QIODevice::WriteOnly))
+    {
+        qDebug() << "Open failed.";
+        return false;
+    }
+    else
+        qDebug()<<"success";
+
+    QDataStream out(&f);
+    //out.setVersion(QDataStream::Qt_4_1);
+    QString s1("123");
+    quint32 n1(123);
+
+    out << s1 ;
+    out << n1 ;
+    f.close();
+    return true;
+
+*/
+
+    std::ofstream txtOutput;
+    txtOutput.open(":/../../build-Suduku-Desktop_Qt_5_6_2_clang_64bit-Debug/wocaonimabi.txt");
+    if(!txtOutput)
+    {
+        qDebug()<<"success";
+    }
+    for(int i = 1;i<=9;++i)
+    {
+        for(int  j = 1;j<=9;++j)
+        {
+
+            if(!out[i][j])
+            {
+    //            qDebug()<<"* ";
+                txtOutput<<"* ";
+            }
+            else
+                {
+                txtOutput<<out[i][j]<<' ';
+      //          qDebug()<<out[i][j]<<' ';
+                }
+        }
+        txtOutput<<std::endl;
+    }
+     txtOutput.close();
     return false;
 }
 
@@ -339,11 +407,22 @@ void MainWindow::fill(int x,int y,int num)
 
 }
 
-
-void MainWindow::on_pushButton_clicked()
+void MainWindow::longpress(int i)
 {
-   // qDebug()<<"sada";
-    return;
+    longbut = i;
+     timer = new QTimer;
+       timer->setInterval(1000);
+       timer->start();
+    connect(timer,SIGNAL(timeout()),this,SLOT(longsuccess()));
+
+    qDebug()<<67328144878237893;
+}
+
+void MainWindow::longsuccess()
+{
+    qDebug()<<longbut;
+
+    showdia(100+longbut);
 }
 
 void MainWindow::setico(int labnum, int iconum, int input)
@@ -364,4 +443,33 @@ void MainWindow::setico(int labnum, int iconum, int input)
        // qDebug()<<iconum;
     }
     lab[labnum]->setIcon(*ico[iconum]);
+}
+
+
+void MainWindow::paintEvent(QPaintEvent *ev)
+{
+    QPainter p(this);
+    QColor a(124,205,124);
+    p.setPen(a);
+    p.setBrush(a);
+
+    for(int i=1;i<=81;++i)
+    {
+        for(int j = 1;j<=9;++j)
+        {
+            if(marked[i][j])
+            {
+                int x = lab[i]->pos().x();
+                int y = lab[i]->pos().y();
+                x += (j-1)%3*13+6;
+                y += (j-1)/3*13+6;
+                p.drawRect(x, y, 11, 11);
+            }
+        }
+    }
+
+}
+void MainWindow::mark(int posi,int num)
+{
+    marked[posi][num] = !marked[posi][num];
 }

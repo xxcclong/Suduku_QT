@@ -43,6 +43,7 @@ public:
         if (DialogChoo->objectName().isEmpty())
             DialogChoo->setObjectName(QStringLiteral("DialogChoo"));
         DialogChoo->resize(160, 140);
+        DialogChoo->setWindowOpacity(0.7);
         gridLayoutWidget = new QWidget(DialogChoo);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
         gridLayoutWidget->setGeometry(QRect(0, 0, 161, 141));

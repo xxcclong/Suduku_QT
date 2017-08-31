@@ -6,15 +6,20 @@
 #include <QMenuBar>
 #include <QAction>
 #include <QActionGroup>
+#include <fstream>
+#include <iostream>
 #include <QPushButton>
+#include <QColor>
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QLabel>
 #include <QPixmap>
 #include <QFileDialog>
+#include <QPainter>
 #include <QIcon>
 #include <QSignalMapper>
 #include <QMouseEvent>
+#include <QTimer>
 #include "dialogchoo.h"
 class QAction;
 class Qlabel;
@@ -31,7 +36,11 @@ public:
     int now = 0;
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
 private slots:
+    void paintEvent(QPaintEvent*);
+    void longsuccess();
+    void longpress(int);
     void newgame();
     void open();
     void showdia(int i =1);
@@ -43,10 +52,15 @@ private slots:
     void hard();
     void fill(int x,int y,int num);
     void mouseMoveEvent(QMouseEvent *event);
-    void on_pushButton_clicked();
+  //  void on_pushButton_clicked();
     void setico(int,int,int input = 0);
 
 private:
+    int markx,marky,marknum;
+    bool marked[82][10];
+    void mark(int,int);
+    QTimer* timer;
+    int longbut;
     // connected with inside game
     int wrong[82];
     int chance;// next step  all steps

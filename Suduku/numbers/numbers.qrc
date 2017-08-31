@@ -30,5 +30,15 @@
         <file>s3.png</file>
         <file>s2.png</file>
         <file>s1.png</file>
+        <file>g9x.png</file>
+        <file>g8x.png</file>
+        <file>g7x.png</file>
+        <file>g6x.png</file>
+        <file>g5x.png</file>
+        <file>g4x.png</file>
+        <file>g3x.png</file>
+        <file>g2x.png</file>
+        <file>g1x.png</file>
+        <file>../../build-Suduku-Desktop_Qt_5_6_2_clang_64bit-Debug/wocaonimabi.txt</file>
     </qresource>
 </RCC>
