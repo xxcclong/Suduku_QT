@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT+=multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -36,7 +37,8 @@ DISTFILES += \
     numbers/4.png \
     numbers/3.png \
     numbers/2.png \
-    numbers/1.png
+    numbers/1.png \
+    numbers/_-_.wav
 
 RESOURCES += \
     numbers/numbers.qrc

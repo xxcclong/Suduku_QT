@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
-DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -mmacosx-version-min=10.7 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++11 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -mmacosx-version-min=10.7 -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I../Suduku -I. -I../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers -I../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers -I../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../../../Qt5.6.2/5.6/clang_64/mkspecs/macx-clang -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib
+INCPATH       = -I../Suduku -I. -I../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers -I../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers -I../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers -I../../../../Qt5.6.2/5.6/clang_64/lib/QtNetwork.framework/Headers -I../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../../../Qt5.6.2/5.6/clang_64/mkspecs/macx-clang -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib
 QMAKE         = /Users/hkz/Qt5.6.2/5.6/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = Suduku1.0.0
 DISTDIR = /Users/hkz/study/GIthub/Suduku_QT/build-Suduku-Desktop_Qt_5_6_2_clang_64bit-Debug/.tmp/Suduku1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -headerpad_max_install_names -stdlib=libc++ -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -mmacosx-version-min=10.7 -Wl,-rpath,/Users/hkz/Qt5.6.2/5.6/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL 
+LIBS          = $(SUBLIBS) -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib -framework QtMultimedia -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit -framework QtGui -framework QtWidgets -framework OpenGL -framework AGL 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -73,6 +73,7 @@ DIST          = ../Suduku/4d84438b4710b91267cfabd8c2fdfc039245221b.png \
 		../Suduku/numbers/3.png \
 		../Suduku/numbers/2.png \
 		../Suduku/numbers/1.png \
+		../Suduku/numbers/_-_.wav \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/qdevice.pri \
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/device_config.prf \
@@ -379,8 +380,10 @@ Makefile: ../Suduku/Suduku.pro ../../../../Qt5.6.2/5.6/clang_64/mkspecs/macx-cla
 		../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/lex.prf \
 		../Suduku/Suduku.pro \
 		../Suduku/numbers/numbers.qrc \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/QtMultimedia.prl \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/QtGui.prl \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtNetwork.framework/QtNetwork.prl \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/QtCore.prl
 	$(QMAKE) -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug -o Makefile ../Suduku/Suduku.pro
 ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/spec_pre.prf:
@@ -527,8 +530,10 @@ Makefile: ../Suduku/Suduku.pro ../../../../Qt5.6.2/5.6/clang_64/mkspecs/macx-cla
 ../../../../Qt5.6.2/5.6/clang_64/mkspecs/features/lex.prf:
 ../Suduku/Suduku.pro:
 ../Suduku/numbers/numbers.qrc:
+../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/QtMultimedia.prl:
 ../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
 ../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/QtGui.prl:
+../../../../Qt5.6.2/5.6/clang_64/lib/QtNetwork.framework/QtNetwork.prl:
 ../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/QtCore.prl:
 qmake: FORCE
 	@$(QMAKE) -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug -o Makefile ../Suduku/Suduku.pro
@@ -640,10 +645,14 @@ moc_mainwindow.cpp: ../Suduku/sudukuclass.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMenuBar \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QAction \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/QSound \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/qsound.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QColor \
@@ -673,14 +682,14 @@ moc_mainwindow.cpp: ../Suduku/sudukuclass.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
 		../Suduku/mainwindow.h
-	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/hkz/Qt5.6.2/5.6/clang_64/mkspecs/macx-clang -I/Users/hkz/study/GIthub/Suduku_QT/Suduku -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers -I. -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib ../Suduku/mainwindow.h -o moc_mainwindow.cpp
+	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/hkz/Qt5.6.2/5.6/clang_64/mkspecs/macx-clang -I/Users/hkz/study/GIthub/Suduku_QT/Suduku -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtNetwork.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers -I. -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib ../Suduku/mainwindow.h -o moc_mainwindow.cpp
 
 moc_dialogchoo.cpp: ../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QDialog \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QKeyEvent \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../Suduku/dialogchoo.h
-	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/hkz/Qt5.6.2/5.6/clang_64/mkspecs/macx-clang -I/Users/hkz/study/GIthub/Suduku_QT/Suduku -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers -I. -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib ../Suduku/dialogchoo.h -o moc_dialogchoo.cpp
+	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/hkz/Qt5.6.2/5.6/clang_64/mkspecs/macx-clang -I/Users/hkz/study/GIthub/Suduku_QT/Suduku -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtNetwork.framework/Headers -I/Users/hkz/Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers -I. -F/Users/hkz/Qt5.6.2/5.6/clang_64/lib ../Suduku/dialogchoo.h -o moc_dialogchoo.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -713,10 +722,14 @@ main.o: ../Suduku/main.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMenuBar \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QAction \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/QSound \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/qsound.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QColor \
@@ -757,10 +770,14 @@ mainwindow.o: ../Suduku/mainwindow.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMenuBar \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QAction \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/QSound \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/qsound.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QColor \

@@ -3,11 +3,16 @@
 #include "sudukuclass.h"
 #include <QMainWindow>
 #include <QDebug>
+#include <QCoreApplication>
+#include <QMediaPlayer>
+#include <QTime>
+#include <QMediaPlaylist>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QAction>
 #include <QActionGroup>
 #include <fstream>
+#include <QSound>
 #include <iostream>
 #include <QPushButton>
 #include <QColor>
@@ -17,6 +22,7 @@
 #include <QPixmap>
 #include <QFileDialog>
 #include <QPainter>
+
 #include <QIcon>
 #include <QSignalMapper>
 #include <QMouseEvent>
@@ -60,10 +66,12 @@ private slots:
     void setico(int,int,int input = 0);
 
 private:
+    int showrong;
     int timenum;
     QLabel* time;
     bool started;
     int alll;
+    void waitsec(int i=50);
     int markx,marky,marknum;
     bool marked[82][10];
     void mark(int,int);
