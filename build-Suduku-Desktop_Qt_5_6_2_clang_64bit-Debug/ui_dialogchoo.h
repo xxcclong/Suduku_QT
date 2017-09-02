@@ -42,11 +42,11 @@ public:
     {
         if (DialogChoo->objectName().isEmpty())
             DialogChoo->setObjectName(QStringLiteral("DialogChoo"));
-        DialogChoo->resize(160, 140);
+        DialogChoo->resize(161, 128);
         DialogChoo->setWindowOpacity(0.7);
         gridLayoutWidget = new QWidget(DialogChoo);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(0, 0, 161, 141));
+        gridLayoutWidget->setGeometry(QRect(0, 0, 161, 131));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -137,8 +137,8 @@ public:
         retranslateUi(DialogChoo);
 
         pushButton->setDefault(false);
-        pushButton_10->setDefault(false);
-        pushButton_11->setDefault(true);
+        pushButton_10->setDefault(true);
+        pushButton_11->setDefault(false);
 
 
         QMetaObject::connectSlotsByName(DialogChoo);
@@ -156,7 +156,7 @@ public:
         pushButton_3->setText(QApplication::translate("DialogChoo", "7", 0));
         pushButton_9->setText(QApplication::translate("DialogChoo", "9", 0));
         pushButton_7->setText(QApplication::translate("DialogChoo", "3", 0));
-        pushButton_10->setText(QApplication::translate("DialogChoo", "clear", 0));
+        pushButton_10->setText(QString());
         pushButton_11->setText(QApplication::translate("DialogChoo", "back", 0));
     } // retranslateUi
 

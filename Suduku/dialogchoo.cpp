@@ -17,6 +17,8 @@ DialogChoo::DialogChoo(QWidget *parent) :
 }
 DialogChoo::DialogChoo(QWidget *parent,int i):QDialog(parent),ui(new Ui::DialogChoo)
 {
+//    if(i>100)
+//        pushButton_11->setText("mark");
     now = -1;
     this->setWindowFlags(Qt::Dialog| Qt::FramelessWindowHint);
     ui->setupUi(this);
@@ -82,7 +84,7 @@ void DialogChoo::on_pushButton_10_clicked()
 
 void DialogChoo::on_pushButton_11_clicked()
 {
-    accept();
+    now = -1;accept();
 }
 
 

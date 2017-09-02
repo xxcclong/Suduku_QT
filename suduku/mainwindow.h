@@ -50,9 +50,12 @@ private slots:
     void paintEvent(QPaintEvent*);
     void longsuccess();
     void longpress(int);
+    void marrk(int posi,int num);
     void newgame();
     void open();
     void showdia(int i =1);
+    void repeal();
+    void reform();
     bool save();
     bool saveas();
     void about();
@@ -66,6 +69,17 @@ private slots:
     void setico(int,int,int input = 0);
 
 private:
+    struct opt
+    {
+        int ox,oy;
+        int oformer,othen;
+        int omark;
+        opt()
+        {
+            ox = oy = oformer = othen = omark = 0;
+        }
+    }o[10];
+    int opointer;
     int showrong;
     int timenum;
     QLabel* time;
@@ -101,6 +115,8 @@ private:
     QMenu* difficulty;
     QActionGroup *difficultyGroup;
     QAction* Stop;
+    QAction* repealAction;
+    QAction* reformAction;
     QAction *easyAction;
     QAction *middleAction;
     QAction* nextAction;

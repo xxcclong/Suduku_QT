@@ -60,10 +60,10 @@ void sudu::form(int i)
         if(ans > 0)
             --all;
     }
-        debug_print();
+//        debug_print();
         test(smallx,smally);
-        cout<<"***********"<<node->down<<endl;
-        cout<<node->depth<<endl;
+      //  cout<<"***********"<<node->down<<endl;
+        //cout<<node->depth<<endl;
         if(node->down == 1)
             break;
         clear();
@@ -213,7 +213,7 @@ int sudu::deny(const int x,const int y,const int Num,bool input)
     if(!sum)
     {
        // cout<<"the final answer"<<endl;
-        debug_print();
+        //debug_print();
         for(int i=1;i<=9;++i)
             for(int j =1;j<=9;++j)
                 right[i][j] = g[i][j].num;

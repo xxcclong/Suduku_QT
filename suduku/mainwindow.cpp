@@ -27,6 +27,7 @@ example=new QMediaPlayer;
     memset(wrong,0,sizeof(wrong));
     chance = 0;
     alll = 81;
+    int opointer = 0;
     started = 0;
     //QString fileName = QFileDialog::getOpenFileName(this,"Choose Image","x:/image",("Image File(*.*)")) ;
 
@@ -126,15 +127,17 @@ void MainWindow::showdia(int i)
 {
     showrong = 0;
     timer->stop();
+    gametimer->stop();
     if(i>100)
     {
         i-=100;
         DialogChoo diaa(this,i);
         diaa.setGeometry(mousex,mousey,161,141);
         diaa.exec();
-        if(diaa.now <= 0)
+        if(diaa.now == -1)
             return;
         mark(i,diaa.now);
+        gametimer->start();
         return;
 
 
@@ -144,37 +147,18 @@ void MainWindow::showdia(int i)
 
     diaa.setGeometry(mousex,mousey,161,141);
     diaa.exec();
-    if(i == -1)
-        return;
+    gametimer->start();
 
-    if(diaa.now == -1)
-        return;
-    out[(i-1)/9+1][(i-1)%9+1] = diaa.now;
-    if(!diaa.now)
-    {
-        if(wrong[i])
-        {
-            wrong[i] = 0;
-            --chance;
-        }
-    }
-    else if(MainSudu->right[(i-1)/9+1][(i-1)%9+1] != diaa.now)
-    {
-        if(!wrong[i])
-        {
-            ++chance;
-            wrong[i] = 1;
-        }
-    }
-    else
-    {
-        if(wrong[i])
-        {
-            --chance;
-            wrong[i] = 0;
-        }
-    }
+    ++opointer;
+    o[(opointer)%10].ox = (i-1)/9+1;
+    o[(opointer)%10].oy = (i-1)%9+1;
+    o[(opointer)%10].oformer = out[(i-1)/9+1][(i-1)%9+1];
+    o[(opointer)%10].othen = diaa.now;
+
     setico(i,diaa.now);
+
+
+
     //qDebug()<<chance;//<<chance<<' '<<(i-1)/9+1<<' '<<(i-1)&9+1;
 
 }
@@ -198,17 +182,23 @@ void MainWindow::newgame()
  connect(gametimer,SIGNAL(timeout()),this,SLOT(showtime()));
     started = true;
     for(int i=1;i<=81;++i)
-        for(int j=1;j<=9;++j)
+        for(int j=0;j<=9;++j)
         {
             marked[i][j] = 0;
+
            // out[i][j] = 0;
         }
+    for(int i=0;i<=9;++i)
+    {
+        o[i].oformer=o[i].ox=o[i].omark=o[i].oy=o[i].othen = 0;
+    }
     finalone = NULL;
     marknum = 0;//  if it is marked
     MainSudu->node = new sudu::tree;
     MainSudu->clear();
     for(int i = 1;i <= 81;++i)
     {
+        out[(i-1)/9+1][(i-1)%9+1] = 0;
         lab[i]->setEnabled(true);
         wrong[i] = 0;
 
@@ -232,12 +222,16 @@ void MainWindow::newgame()
         MainSudu->g[xx][yy].num = numnum;
         finalone = finalone->former;
     }
+
+
+
+
     for(int i = 1;i<=9;++i)
         for(int j = 1;j<=9;++j)
         {
 
             setico(9*(i-1)+j,MainSudu->g[i][j].num,1);
-            out[i][j] = MainSudu->g[i][j].num;
+            qDebug()<<out[i][j];
             waitsec();
         }
 
@@ -315,7 +309,7 @@ bool MainWindow::save()
             else
                 {
                 txtOutput<<out[i][j]<<' ';
-      //          qDebug()<<out[i][j]<<' ';
+      //          [i][j]<<' ';
                 }
         }
         txtOutput<<std::endl;
@@ -384,6 +378,13 @@ void MainWindow::createActions()
     nextAction->setShortcut(tr("Ctrl+p"));
     connect(nextAction,SIGNAL(triggered()),this,SLOT(find_next()));
 
+    repealAction = new QAction(tr("repeal"),this);
+    repealAction ->setShortcut(tr("Ctrl+z"));
+    connect(repealAction,SIGNAL(triggered()),this,SLOT(repeal()));
+
+    reformAction = new QAction(tr("reform"),this);
+    reformAction ->setShortcut(tr("Ctrl+Shift+z"));
+    connect(reformAction,SIGNAL(triggered(bool)),this,SLOT(reform()));
 
 
     easyAction = new QAction(tr("easy"),this);
@@ -434,6 +435,8 @@ void MainWindow::createMenus()
     gamemenu = menuBar() ->addMenu(tr("&Game"));
     gamemenu -> addAction(nextAction);
     gamemenu -> addAction(Stop);
+    gamemenu -> addAction(repealAction);
+    gamemenu -> addAction(reformAction);
 
     infoMenu = menuBar() -> addMenu(tr("&Info"));
     infoMenu -> addAction(aboutAction);
@@ -479,14 +482,46 @@ void MainWindow::longsuccess()
 
 void MainWindow::setico(int labnum, int iconum, int input)
 {
-    if(iconum)
+    if(labnum == -1)
+        return;
+
+    if(iconum == -1)
+        return;
+
+    if(!iconum)
+    {
+        if(wrong[labnum])
+        {
+            wrong[labnum] = 0;
+            --chance;
+        }
+    }
+    else if(MainSudu->right[(labnum-1)/9+1][(labnum-1)%9+1] != iconum)
+    {
+        if(!wrong[labnum])
+        {
+            ++chance;
+            wrong[labnum] = 1;
+        }
+    }
+    else
+    {
+        if(wrong[labnum])
+        {
+            --chance;
+            wrong[labnum] = 0;
+        }
+    }
+    if(iconum&&out[(labnum-1)/9+1][(labnum-1)%9+1]==0)
     {
         --alll;
+
     }
-    qDebug()<<input<<' '<<iconum<<' '<<out[(labnum-1)/9+1][(labnum-1)%9+1] ;
+
     if(!input&&!iconum&&out[(labnum-1)/9+1][(labnum-1)%9+1] != 0)
     {
         qDebug()<<"+++";
+
         ++alll;
     }
     //qDebug()<<labnum<<'*'<<iconum<<'*'<<input;
@@ -495,6 +530,7 @@ void MainWindow::setico(int labnum, int iconum, int input)
     lab[labnum]->setIconSize(QSize(43, 42));
     if(input&&iconum)
     {
+
         lab[labnum]->setEnabled(false);
         iconum += 20 ;
     }
@@ -522,6 +558,11 @@ void MainWindow::setico(int labnum, int iconum, int input)
         }
      //   delete gametimer;
     }
+    if(iconum>=20)
+        iconum-=20;
+    if(iconum>=10)
+        iconum =0;
+    out[(labnum-1)/9+1][(labnum-1)%9+1] = iconum;
 }
 
 
@@ -534,15 +575,25 @@ void MainWindow::paintEvent(QPaintEvent *ev)
 
     for(int i=1;i<=81;++i)
     {
-        for(int j = 1;j<=9;++j)
+        for(int j = 0;j<=9;++j)
         {
-            if(marked[i][j])
+            if(marked[i][j]&&j)
             {
                 int x = lab[i]->pos().x();
                 int y = lab[i]->pos().y();
                 x += (j-1)%3*13+6;
                 y += (j-1)/3*13+6;
                 p.drawRect(x, y, 11, 11);
+            }
+            if(marked[i][j]&&!j)
+            {
+                QPainter e(this);
+                QColor k(Qt::blue);
+                e.setPen(k);
+                e.setBrush(k);
+                int x = lab[i]->pos().x();
+                int y = lab[i]->pos().y();
+                e.drawEllipse(x+41,y+1,8,8);
             }
         }
     }
@@ -573,7 +624,14 @@ void MainWindow::paintEvent(QPaintEvent *ev)
 }
 void MainWindow::mark(int posi,int num)
 {
+    ++opointer;
     marked[posi][num] = !marked[posi][num];
+    o[(opointer)%10].ox = (posi-1)/9+1;
+    o[(opointer)%10].oy = (posi-1)%9+1;
+    o[(opointer)%10].omark = num;
+    o[(opointer)%10].oformer = 0;
+    o[(opointer)%10].othen = 0;
+    update();
 }
 
 
@@ -600,13 +658,22 @@ void MainWindow::find_next()
         {
             if(out[i][j])
             {
+                qDebug()<<out[i][j];
                 MainSudu->deny(i,j,out[i][j],1);
+                if(out[i][j]>10)
+                    qDebug()<<"out"<<i<<' '<<j<<' '<<out[i][j];
             }
         }
-    //MainSudu->debug_print();
-     out[MainSudu->smallx][MainSudu->smally] = MainSudu->right[MainSudu->smallx][MainSudu->smally];
-   //  qDebug()<< out[MainSudu->smallx][MainSudu->smally];
+
+    ++opointer;
+    o[(opointer)%10].ox = MainSudu->smallx;
+    o[(opointer)%10].oy = MainSudu->smally;
+    o[(opointer)%10].oformer = out[MainSudu->smallx][MainSudu->smally];
+    o[(opointer)%10].othen = MainSudu->right[MainSudu->smallx][MainSudu->smally];
     setico(((MainSudu->smallx-1)*9+MainSudu->smally),MainSudu->right[MainSudu->smallx][MainSudu->smally]);
+
+   //  qDebug()<< out[MainSudu->smallx][MainSudu->smally];
+
    // qDebug()<<MainSudu->smallx<<' '<<MainSudu->smally;
 }
 
@@ -614,10 +681,10 @@ void MainWindow::find_next()
 void MainWindow::showtime()
 {
     ++timenum;
-    qDebug()<<timenum%30;
+
     if(!(timenum%30))
     {
-        qDebug()<<"huaer";
+
         QSound::play("/Users/hkz/study/GIthub/Suduku_QT/Suduku/numbers/6589.wav");
     }
     time->setText(QString::number(timenum,10));
@@ -643,4 +710,49 @@ void MainWindow::waitsec(int s)
     t.start();
     while(t.elapsed()<s)
         QCoreApplication::processEvents();
+}
+
+void MainWindow::repeal()
+{
+    if(!(o[opointer%10].ox*o[opointer%10].oy))
+        return;
+    qDebug()<<"in";
+    if((o[opointer%10].oformer+o[opointer%10].othen)!=0)
+    {
+        qDebug()<<"intint";
+        qDebug()<<o[opointer%10].oformer;
+        setico((o[opointer%10].ox-1)*9+o[opointer%10].oy,o[opointer%10].oformer);
+    }
+    else
+        {
+            marrk((o[opointer%10].ox-1)*9+o[opointer%10].oy,o[opointer%10].omark);
+        }
+    --opointer;
+
+}
+
+
+void MainWindow::reform()
+{
+    ++opointer;
+    if(!(o[opointer%10].ox*o[opointer%10].oy))
+        return;
+    if((o[opointer%10].oformer+o[opointer%10].othen)!=0)
+    {
+
+        setico((o[opointer%10].ox-1)*9+o[opointer%10].oy,o[opointer%10].othen);
+    }
+    else
+        {
+            mark((o[opointer%10].ox-1)*9+o[opointer%10].oy,o[opointer%10].omark);
+        }
+
+}
+
+
+
+void MainWindow::marrk(int posi,int num)
+{
+    marked[posi][num] = !marked[posi][num];
+    update();
 }
