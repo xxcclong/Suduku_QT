@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[32];
-    char stringdata0[229];
+    QByteArrayData data[33];
+    char stringdata0[237];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,43 +32,44 @@ static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 8), // "stopgame"
 QT_MOC_LITERAL(2, 20, 0), // ""
-QT_MOC_LITERAL(3, 21, 8), // "showtime"
-QT_MOC_LITERAL(4, 30, 10), // "paintEvent"
-QT_MOC_LITERAL(5, 41, 12), // "QPaintEvent*"
-QT_MOC_LITERAL(6, 54, 11), // "longsuccess"
-QT_MOC_LITERAL(7, 66, 9), // "longpress"
-QT_MOC_LITERAL(8, 76, 5), // "marrk"
-QT_MOC_LITERAL(9, 82, 4), // "posi"
-QT_MOC_LITERAL(10, 87, 3), // "num"
-QT_MOC_LITERAL(11, 91, 7), // "newgame"
-QT_MOC_LITERAL(12, 99, 4), // "open"
-QT_MOC_LITERAL(13, 104, 7), // "showdia"
-QT_MOC_LITERAL(14, 112, 1), // "i"
-QT_MOC_LITERAL(15, 114, 6), // "repeal"
-QT_MOC_LITERAL(16, 121, 6), // "reform"
-QT_MOC_LITERAL(17, 128, 4), // "save"
-QT_MOC_LITERAL(18, 133, 6), // "saveas"
-QT_MOC_LITERAL(19, 140, 5), // "about"
-QT_MOC_LITERAL(20, 146, 4), // "easy"
-QT_MOC_LITERAL(21, 151, 6), // "middle"
-QT_MOC_LITERAL(22, 158, 4), // "hard"
-QT_MOC_LITERAL(23, 163, 9), // "find_next"
-QT_MOC_LITERAL(24, 173, 4), // "fill"
-QT_MOC_LITERAL(25, 178, 1), // "x"
-QT_MOC_LITERAL(26, 180, 1), // "y"
-QT_MOC_LITERAL(27, 182, 14), // "mouseMoveEvent"
-QT_MOC_LITERAL(28, 197, 12), // "QMouseEvent*"
-QT_MOC_LITERAL(29, 210, 5), // "event"
-QT_MOC_LITERAL(30, 216, 6), // "setico"
-QT_MOC_LITERAL(31, 223, 5) // "input"
+QT_MOC_LITERAL(3, 21, 7), // "getMute"
+QT_MOC_LITERAL(4, 29, 8), // "showtime"
+QT_MOC_LITERAL(5, 38, 10), // "paintEvent"
+QT_MOC_LITERAL(6, 49, 12), // "QPaintEvent*"
+QT_MOC_LITERAL(7, 62, 11), // "longsuccess"
+QT_MOC_LITERAL(8, 74, 9), // "longpress"
+QT_MOC_LITERAL(9, 84, 5), // "marrk"
+QT_MOC_LITERAL(10, 90, 4), // "posi"
+QT_MOC_LITERAL(11, 95, 3), // "num"
+QT_MOC_LITERAL(12, 99, 7), // "newgame"
+QT_MOC_LITERAL(13, 107, 4), // "open"
+QT_MOC_LITERAL(14, 112, 7), // "showdia"
+QT_MOC_LITERAL(15, 120, 1), // "i"
+QT_MOC_LITERAL(16, 122, 6), // "repeal"
+QT_MOC_LITERAL(17, 129, 6), // "reform"
+QT_MOC_LITERAL(18, 136, 4), // "save"
+QT_MOC_LITERAL(19, 141, 6), // "saveas"
+QT_MOC_LITERAL(20, 148, 5), // "about"
+QT_MOC_LITERAL(21, 154, 4), // "easy"
+QT_MOC_LITERAL(22, 159, 6), // "middle"
+QT_MOC_LITERAL(23, 166, 4), // "hard"
+QT_MOC_LITERAL(24, 171, 9), // "find_next"
+QT_MOC_LITERAL(25, 181, 4), // "fill"
+QT_MOC_LITERAL(26, 186, 1), // "x"
+QT_MOC_LITERAL(27, 188, 1), // "y"
+QT_MOC_LITERAL(28, 190, 14), // "mouseMoveEvent"
+QT_MOC_LITERAL(29, 205, 12), // "QMouseEvent*"
+QT_MOC_LITERAL(30, 218, 5), // "event"
+QT_MOC_LITERAL(31, 224, 6), // "setico"
+QT_MOC_LITERAL(32, 231, 5) // "input"
 
     },
-    "MainWindow\0stopgame\0\0showtime\0paintEvent\0"
-    "QPaintEvent*\0longsuccess\0longpress\0"
-    "marrk\0posi\0num\0newgame\0open\0showdia\0"
-    "i\0repeal\0reform\0save\0saveas\0about\0"
-    "easy\0middle\0hard\0find_next\0fill\0x\0y\0"
-    "mouseMoveEvent\0QMouseEvent*\0event\0"
+    "MainWindow\0stopgame\0\0getMute\0showtime\0"
+    "paintEvent\0QPaintEvent*\0longsuccess\0"
+    "longpress\0marrk\0posi\0num\0newgame\0open\0"
+    "showdia\0i\0repeal\0reform\0save\0saveas\0"
+    "about\0easy\0middle\0hard\0find_next\0fill\0"
+    "x\0y\0mouseMoveEvent\0QMouseEvent*\0event\0"
     "setico\0input"
 };
 #undef QT_MOC_LITERAL
@@ -79,7 +80,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      23,   14, // methods
+      24,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -87,40 +88,42 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  129,    2, 0x08 /* Private */,
-       3,    0,  130,    2, 0x08 /* Private */,
-       4,    1,  131,    2, 0x08 /* Private */,
-       6,    0,  134,    2, 0x08 /* Private */,
-       7,    1,  135,    2, 0x08 /* Private */,
-       8,    2,  138,    2, 0x08 /* Private */,
-      11,    0,  143,    2, 0x08 /* Private */,
-      12,    0,  144,    2, 0x08 /* Private */,
-      13,    1,  145,    2, 0x08 /* Private */,
-      13,    0,  148,    2, 0x28 /* Private | MethodCloned */,
-      15,    0,  149,    2, 0x08 /* Private */,
-      16,    0,  150,    2, 0x08 /* Private */,
-      17,    0,  151,    2, 0x08 /* Private */,
-      18,    0,  152,    2, 0x08 /* Private */,
-      19,    0,  153,    2, 0x08 /* Private */,
-      20,    0,  154,    2, 0x08 /* Private */,
-      21,    0,  155,    2, 0x08 /* Private */,
-      22,    0,  156,    2, 0x08 /* Private */,
-      23,    0,  157,    2, 0x08 /* Private */,
-      24,    3,  158,    2, 0x08 /* Private */,
-      27,    1,  165,    2, 0x08 /* Private */,
-      30,    3,  168,    2, 0x08 /* Private */,
-      30,    2,  175,    2, 0x28 /* Private | MethodCloned */,
+       1,    0,  134,    2, 0x08 /* Private */,
+       3,    0,  135,    2, 0x08 /* Private */,
+       4,    0,  136,    2, 0x08 /* Private */,
+       5,    1,  137,    2, 0x08 /* Private */,
+       7,    0,  140,    2, 0x08 /* Private */,
+       8,    1,  141,    2, 0x08 /* Private */,
+       9,    2,  144,    2, 0x08 /* Private */,
+      12,    0,  149,    2, 0x08 /* Private */,
+      13,    0,  150,    2, 0x08 /* Private */,
+      14,    1,  151,    2, 0x08 /* Private */,
+      14,    0,  154,    2, 0x28 /* Private | MethodCloned */,
+      16,    0,  155,    2, 0x08 /* Private */,
+      17,    0,  156,    2, 0x08 /* Private */,
+      18,    0,  157,    2, 0x08 /* Private */,
+      19,    0,  158,    2, 0x08 /* Private */,
+      20,    0,  159,    2, 0x08 /* Private */,
+      21,    0,  160,    2, 0x08 /* Private */,
+      22,    0,  161,    2, 0x08 /* Private */,
+      23,    0,  162,    2, 0x08 /* Private */,
+      24,    0,  163,    2, 0x08 /* Private */,
+      25,    3,  164,    2, 0x08 /* Private */,
+      28,    1,  171,    2, 0x08 /* Private */,
+      31,    3,  174,    2, 0x08 /* Private */,
+      31,    2,  181,    2, 0x28 /* Private | MethodCloned */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 5,    2,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 6,    2,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    2,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    9,   10,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   10,   11,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   14,
+    QMetaType::Void, QMetaType::Int,   15,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -131,9 +134,9 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,   25,   26,   10,
-    QMetaType::Void, 0x80000000 | 28,   29,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,    2,    2,   31,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,   26,   27,   11,
+    QMetaType::Void, 0x80000000 | 29,   30,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,    2,    2,   32,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
 
        0        // eod
@@ -146,30 +149,31 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->stopgame(); break;
-        case 1: _t->showtime(); break;
-        case 2: _t->paintEvent((*reinterpret_cast< QPaintEvent*(*)>(_a[1]))); break;
-        case 3: _t->longsuccess(); break;
-        case 4: _t->longpress((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 5: _t->marrk((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 6: _t->newgame(); break;
-        case 7: _t->open(); break;
-        case 8: _t->showdia((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 9: _t->showdia(); break;
-        case 10: _t->repeal(); break;
-        case 11: _t->reform(); break;
-        case 12: { bool _r = _t->save();
+        case 1: _t->getMute(); break;
+        case 2: _t->showtime(); break;
+        case 3: _t->paintEvent((*reinterpret_cast< QPaintEvent*(*)>(_a[1]))); break;
+        case 4: _t->longsuccess(); break;
+        case 5: _t->longpress((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: _t->marrk((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 7: _t->newgame(); break;
+        case 8: _t->open(); break;
+        case 9: _t->showdia((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 10: _t->showdia(); break;
+        case 11: _t->repeal(); break;
+        case 12: _t->reform(); break;
+        case 13: { bool _r = _t->save();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 13: { bool _r = _t->saveas();
+        case 14: { bool _r = _t->saveas();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 14: _t->about(); break;
-        case 15: _t->easy(); break;
-        case 16: _t->middle(); break;
-        case 17: _t->hard(); break;
-        case 18: _t->find_next(); break;
-        case 19: _t->fill((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
-        case 20: _t->mouseMoveEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 21: _t->setico((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
-        case 22: _t->setico((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 15: _t->about(); break;
+        case 16: _t->easy(); break;
+        case 17: _t->middle(); break;
+        case 18: _t->hard(); break;
+        case 19: _t->find_next(); break;
+        case 20: _t->fill((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 21: _t->mouseMoveEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 22: _t->setico((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 23: _t->setico((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         default: ;
         }
     }
@@ -200,13 +204,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 23)
+        if (_id < 24)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 23;
+        _id -= 24;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 23)
+        if (_id < 24)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 23;
+        _id -= 24;
     }
     return _id;
 }

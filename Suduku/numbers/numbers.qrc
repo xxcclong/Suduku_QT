@@ -39,6 +39,5 @@
         <file>g3x.png</file>
         <file>g2x.png</file>
         <file>g1x.png</file>
-        <file>../../build-Suduku-Desktop_Qt_5_6_2_clang_64bit-Debug/wocaonimabi.txt</file>
     </qresource>
 </RCC>

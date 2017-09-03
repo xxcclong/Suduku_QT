@@ -4,14 +4,19 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
+    // central widget
     QWidget *widget = new QWidget();
     this->setCentralWidget(widget);
     widget->setMouseTracking(true);
+
+
+
+
     this->setMouseTracking(true);
-    //m = new QSignalMapper(this);
-    //QSound player("/Users/hkz/study/GIthub/Suduku_QT/build-Suduku-Desktop_Qt_5_6_2_clang_64bit-Debug/_-_.wav");
-    //player.play();
-    QSound::play("/Users/hkz/study/GIthub/Suduku_QT/build-Suduku-Desktop_Qt_5_6_2_clang_64bit-Debug/_-_.wav");
+    ismute = 0;
+    mainsound = new QSound("/Users/hkz/study/GIthub/Suduku_QT/build-Suduku-Desktop_Qt_5_6_2_clang_64bit-Debug/_-_.wav");
+    mainsound->play();
+    mainsound->setLoops(-1);
     QMediaPlaylist* playlist;
     playlist = new QMediaPlaylist;
     showrong = 0;
@@ -128,12 +133,14 @@ void MainWindow::showdia(int i)
     showrong = 0;
     timer->stop();
     gametimer->stop();
+
     if(i>100)
     {
         i-=100;
         DialogChoo diaa(this,i);
         diaa.setGeometry(mousex,mousey,161,141);
         diaa.exec();
+
         if(diaa.now == -1)
             return;
         mark(i,diaa.now);
@@ -149,13 +156,16 @@ void MainWindow::showdia(int i)
     diaa.exec();
     gametimer->start();
 
+    if(out[(i-1)/9+1][(i-1)%9+1]!=diaa.now)
+    {
     ++opointer;
     o[(opointer)%10].ox = (i-1)/9+1;
     o[(opointer)%10].oy = (i-1)%9+1;
     o[(opointer)%10].oformer = out[(i-1)/9+1][(i-1)%9+1];
     o[(opointer)%10].othen = diaa.now;
-
+    }
     setico(i,diaa.now);
+    clickednum = diaa.now;
 
 
 
@@ -171,6 +181,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::newgame()
 {
+    if(!ismute)
     QSound::play("/Users/hkz/study/GIthub/Suduku_QT/Suduku/numbers/6407.wav");
     if(gametimer!=NULL)
          delete gametimer;
@@ -181,6 +192,7 @@ void MainWindow::newgame()
     gametimer->start();
  connect(gametimer,SIGNAL(timeout()),this,SLOT(showtime()));
     started = true;
+    clickednum = -1;
     for(int i=1;i<=81;++i)
         for(int j=0;j<=9;++j)
         {
@@ -263,7 +275,83 @@ mousey = e->globalPos().y();
 
 void MainWindow::open()
 {
+    QString fileName = QFileDialog::getOpenFileName(this,"Choose Image","x:/image",("Image File(*.*)")) ;
+    QFile file(fileName);
+    if (file.open(QFile::ReadOnly))
+    {
+        QTextStream fin(&file);
+        for(int i=1;i<=9;++i)
+            for(int j=1;j<=9;++j)
+            {
+                fin>>out[i][j];
+                qDebug()<<out[i][j];
+            }
+        if(!ismute)
+        QSound::play("/Users/hkz/study/GIthub/Suduku_QT/Suduku/numbers/6407.wav");
+        if(gametimer!=NULL)
+             delete gametimer;
+        time -> setText(QString::number(0,10));
+        gametimer = new QTimer;
+        timenum = 0;
+        clickednum = -1;
+        gametimer->setInterval(1000);
+        gametimer->start();
+        connect(gametimer,SIGNAL(timeout()),this,SLOT(showtime()));
+        started = true;
+        for(int i=1;i<=81;++i)
+            for(int j=0;j<=9;++j)
+            {
+                marked[i][j] = 0;
+
+               // out[i][j] = 0;
+            }
+        for(int i=0;i<=9;++i)
+        {
+            o[i].oformer=o[i].ox=o[i].omark=o[i].oy=o[i].othen = 0;
+        }
+        finalone = NULL;
+        marknum = 0;//  if it is marked
+        MainSudu->node = new sudu::tree;
+        MainSudu->clear();
+        for(int i = 1;i <= 81;++i)
+        {
+           // out[(i-1)/9+1][(i-1)%9+1] = 0;
+            lab[i]->setEnabled(true);
+            wrong[i] = 0;
+
+        }
+        chance = 0;
+        alll = 81;
+        //MainSudu->form();
+        //finalone = MainSudu->finalone;
+        //MainSudu->test(MainSudu->smallx,MainSudu->smally);
+
+        for(int i=1;i<=9;++i)
+            for(int j=1;j<=9;++j)
+                if(out[i][j])
+                MainSudu->deny(i,j,out[i][j],1);
+        MainSudu->test(MainSudu->smallx,MainSudu->smally);
+
+
+        for(int i = 1;i<=9;++i)
+            for(int j = 1;j<=9;++j)
+            {
+
+                setico(9*(i-1)+j,out[i][j],1);
+
+                waitsec();
+            }
+
+
+    }
+    else
+    {
+        qDebug() << "open file failed";
+    }
+    file.close();       //---关闭文件~~~~~~
     return;
+
+
 }
 
 bool MainWindow::save()
@@ -290,32 +378,37 @@ bool MainWindow::save()
 
 */
 
-    std::ofstream txtOutput;
-    txtOutput.open(":/../../build-Suduku-Desktop_Qt_5_6_2_clang_64bit-Debug/wocaonimabi.txt");
-    if(!txtOutput)
-    {
-        //qDebug()<<"success";
-    }
-    for(int i = 1;i<=9;++i)
-    {
-        for(int  j = 1;j<=9;++j)
+    QFile file("save.txt");
+        //---参数：QFile::Truncate表示的是 将原文件内容清空，
+        //--以WriteOnly方式打开文件，如果在工程文件下没有该txt文件，那么程序将创建该文件，若存在，则将原文件内容清空，
+        if (file.open(QFile::WriteOnly | QFile :: Truncate))
         {
+            //---创建 QTextStream流操作对象， 使与QFile对象file绑定。
+            QTextStream fout(&file);
+            //----设置输出格式为: 居中，这里格式还可以设置为：right/left。 占10个字符；
 
-            if(!out[i][j])
+            for(int i=1;i<=9;++i)
             {
-    //            qDebug()<<"* ";
-                txtOutput<<"* ";
-            }
-            else
+                for(int j=1;j<=9;++j)
                 {
-                txtOutput<<out[i][j]<<' ';
-      //          [i][j]<<' ';
+
+                        fout<<out[i][j]<<' ';
+
                 }
+                    fout<<"\n";
+             }
+            qDebug()<<"open success";
+            QFileInfo fileinfo;
+            fileinfo = QFileInfo("xixixi.txt");
+            qDebug()<<fileinfo.absolutePath();
+
         }
-        txtOutput<<std::endl;
-    }
-     txtOutput.close();
-    return false;
+        else
+        {
+            qDebug() << "open file failed";
+        }
+        file.close();       //---关闭文件~~~~~~
+        return true;
 }
 
 bool MainWindow::saveas()
@@ -326,7 +419,7 @@ bool MainWindow::saveas()
 
 void MainWindow::about()
 {
-
+    QMessageBox::information(NULL, "SUDOtree", "Records:\nDifficult:" + QString::number(11, 10) +"\nmiddle:" + QString::number(9, 10)+"\nsimple:" + QString::number(8, 10) , QMessageBox::Yes , QMessageBox::Yes);
     return;
 }
 
@@ -377,6 +470,11 @@ void MainWindow::createActions()
     nextAction = new QAction(tr("find next"),this);
     nextAction->setShortcut(tr("Ctrl+p"));
     connect(nextAction,SIGNAL(triggered()),this,SLOT(find_next()));
+
+
+    muteAction = new QAction(tr("mute"),this);
+    muteAction -> setShortcut(tr("Ctrl+i"));
+    connect(muteAction,SIGNAL(triggered(bool)),this,SLOT(getMute()));
 
     repealAction = new QAction(tr("repeal"),this);
     repealAction ->setShortcut(tr("Ctrl+z"));
@@ -437,6 +535,7 @@ void MainWindow::createMenus()
     gamemenu -> addAction(Stop);
     gamemenu -> addAction(repealAction);
     gamemenu -> addAction(reformAction);
+    gamemenu -> addAction(muteAction);
 
     infoMenu = menuBar() -> addMenu(tr("&Info"));
     infoMenu -> addAction(aboutAction);
@@ -547,12 +646,15 @@ void MainWindow::setico(int labnum, int iconum, int input)
     {
         if(!chance)
         {
+            if(!ismute)
             QSound::play("/Users/hkz/study/GIthub/Suduku_QT/Suduku/numbers/5553.wav");
-            QMessageBox::information(NULL, "SUDOtree", "Success", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
             gametimer->stop();
+            QMessageBox::information(NULL, "SUDOtree", "Success! Time used:" + QString::number(timenum, 10) , QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+
         }
         else
         {
+            if(!ismute)
             QSound::play("/Users/hkz/study/GIthub/Suduku_QT/Suduku/numbers/5538.wav");
             QMessageBox::information(NULL, "SUDOtree", "Some thing wrong", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
         }
@@ -597,6 +699,22 @@ void MainWindow::paintEvent(QPaintEvent *ev)
             }
         }
     }
+    QPainter w(this);
+    QColor v(210,105,30);
+    w.setPen(v);
+    w.setBrush(v);
+
+
+    for(int i=1;i<=9;++i)
+        for(int j=1;j<=9;++j)
+        {
+            if(clickednum!=0&&out[i][j]==clickednum)
+            {
+                int x = lab[(i-1)*9+j]->pos().x();
+                int y = lab[(i-1)*9+j]->pos().y();
+                w.drawEllipse(x-2,y+40,8,8);
+            }
+        }
 
     if(showrong)
     {
@@ -646,6 +764,7 @@ void MainWindow::find_next()
     {
    //     qDebug()<<"no";
         showrong = 1;
+        if(!ismute)
         QSound::play("/Users/hkz/study/GIthub/Suduku_QT/Suduku/numbers/9039.wav");
         update();
         return;
@@ -671,7 +790,8 @@ void MainWindow::find_next()
     o[(opointer)%10].oformer = out[MainSudu->smallx][MainSudu->smally];
     o[(opointer)%10].othen = MainSudu->right[MainSudu->smallx][MainSudu->smally];
     setico(((MainSudu->smallx-1)*9+MainSudu->smally),MainSudu->right[MainSudu->smallx][MainSudu->smally]);
-
+    clickednum = MainSudu->right[MainSudu->smallx][MainSudu->smally];
+    update();
    //  qDebug()<< out[MainSudu->smallx][MainSudu->smally];
 
    // qDebug()<<MainSudu->smallx<<' '<<MainSudu->smally;
@@ -684,7 +804,7 @@ void MainWindow::showtime()
 
     if(!(timenum%30))
     {
-
+        if(!ismute)
         QSound::play("/Users/hkz/study/GIthub/Suduku_QT/Suduku/numbers/6589.wav");
     }
     time->setText(QString::number(timenum,10));
@@ -722,6 +842,8 @@ void MainWindow::repeal()
         qDebug()<<"intint";
         qDebug()<<o[opointer%10].oformer;
         setico((o[opointer%10].ox-1)*9+o[opointer%10].oy,o[opointer%10].oformer);
+        clickednum = o[opointer%10].oformer;
+        update();
     }
     else
         {
@@ -741,6 +863,8 @@ void MainWindow::reform()
     {
 
         setico((o[opointer%10].ox-1)*9+o[opointer%10].oy,o[opointer%10].othen);
+        clickednum = o[opointer%10].othen;
+                update();
     }
     else
         {
@@ -748,7 +872,18 @@ void MainWindow::reform()
         }
 
 }
-
+void MainWindow::getMute()
+{
+    ismute = !ismute;
+    if(ismute)
+    {
+        mainsound->stop();
+    }
+    else
+    {
+        mainsound->play();
+    }
+}
 
 
 void MainWindow::marrk(int posi,int num)

@@ -9,6 +9,7 @@
 #include <QMediaPlaylist>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QFile>
 #include <QAction>
 #include <QActionGroup>
 #include <fstream>
@@ -22,7 +23,7 @@
 #include <QPixmap>
 #include <QFileDialog>
 #include <QPainter>
-
+#include <QTextStream>
 #include <QIcon>
 #include <QSignalMapper>
 #include <QMouseEvent>
@@ -46,6 +47,7 @@ public:
 
 private slots:
     void stopgame();
+    void getMute();
     void showtime();
     void paintEvent(QPaintEvent*);
     void longsuccess();
@@ -79,6 +81,7 @@ private:
             ox = oy = oformer = othen = omark = 0;
         }
     }o[10];
+    QSound *mainsound;
     int opointer;
     int showrong;
     int timenum;
@@ -92,6 +95,7 @@ private:
     QTimer* gametimer;
     QTimer* timer;
     int longbut;
+    int clickednum;
     // connected with inside game
     int wrong[82];
     int chance;// next step  all steps
@@ -112,6 +116,8 @@ private:
     QMenu *gamemenu;
     QMenu *fileMenu;
     QMenu *infoMenu;
+    bool ismute;
+    QAction* muteAction;
     QMenu* difficulty;
     QActionGroup *difficultyGroup;
     QAction* Stop;

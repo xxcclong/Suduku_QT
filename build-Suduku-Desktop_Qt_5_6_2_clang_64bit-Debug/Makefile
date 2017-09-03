@@ -631,8 +631,7 @@ qrc_numbers.cpp: ../Suduku/numbers/numbers.qrc \
 		../Suduku/numbers/4.png \
 		../Suduku/numbers/8.png \
 		../Suduku/numbers/3.png \
-		../Suduku/numbers/7.png \
-		wocaonimabi.txt
+		../Suduku/numbers/7.png
 	/Users/hkz/Qt5.6.2/5.6/clang_64/bin/rcc -name numbers ../Suduku/numbers/numbers.qrc -o qrc_numbers.cpp
 
 compiler_moc_header_make_all: moc_mainwindow.cpp moc_dialogchoo.cpp
@@ -643,10 +642,20 @@ moc_mainwindow.cpp: ../Suduku/sudukuclass.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QCoreApplication \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qcoreapplication.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QTime \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlaylist \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/qmediaplaylist.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMenuBar \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qfile.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QAction \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
@@ -669,6 +678,8 @@ moc_mainwindow.cpp: ../Suduku/sudukuclass.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QPainter \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QTextStream \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qtextstream.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QIcon \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qicon.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QSignalMapper \
@@ -720,10 +731,20 @@ main.o: ../Suduku/main.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QCoreApplication \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qcoreapplication.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QTime \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlaylist \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/qmediaplaylist.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMenuBar \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qfile.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QAction \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
@@ -746,6 +767,8 @@ main.o: ../Suduku/main.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QPainter \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QTextStream \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qtextstream.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QIcon \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qicon.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QSignalMapper \
@@ -768,10 +791,20 @@ mainwindow.o: ../Suduku/mainwindow.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QCoreApplication \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qcoreapplication.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QTime \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlaylist \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtMultimedia.framework/Headers/qmediaplaylist.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMenuBar \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qfile.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QAction \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/QActionGroup \
@@ -794,6 +827,8 @@ mainwindow.o: ../Suduku/mainwindow.cpp ../Suduku/mainwindow.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QPainter \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QTextStream \
+		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/qtextstream.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/QIcon \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtGui.framework/Headers/qicon.h \
 		../../../../Qt5.6.2/5.6/clang_64/lib/QtCore.framework/Headers/QSignalMapper \
