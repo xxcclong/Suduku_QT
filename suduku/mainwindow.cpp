@@ -4,7 +4,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-    // central widget
+
     QWidget *widget = new QWidget();
     this->setCentralWidget(widget);
     widget->setMouseTracking(true);
@@ -20,21 +20,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QMediaPlaylist* playlist;
     playlist = new QMediaPlaylist;
     showrong = 0;
-    //playlist->append("/Users/hkz/study/GIthub/Suduku_QT/build-Suduku-Desktop_Qt_5_6_2_clang_64bit-Debug/_-_.wav");
-    //playlist->addMedia(QUrl("http://example.com/movie2.mp4"));
-    //playlist->addMedia(QUrl("http://example.com/movie3.mp4"));
-    playlist->setCurrentIndex(1);
-    playlist->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
-QMediaPlayer* example;
-example=new QMediaPlayer;
-    example->setPlaylist(playlist);
-    example->play();
+
     memset(wrong,0,sizeof(wrong));
     chance = 0;
     alll = 81;
-    int opointer = 0;
+    opointer = 0;
     started = 0;
-    //QString fileName = QFileDialog::getOpenFileName(this,"Choose Image","x:/image",("Image File(*.*)")) ;
+
 
     ico[1] = new QIcon(":/new/prefix1/1.png");
     ico[2] = new QIcon(":/new/prefix1/2.png");
@@ -70,20 +62,16 @@ example=new QMediaPlayer;
 
 
 
-    //":/new/prefix1/1/png"
-
-    //labpix = labpix.scaled()
     G = new QGridLayout();
     for(int i=1;i<=81;++i)
     {
-        //lab[i] = new QPushButton(*ico[0], "", widget);
+
         lab[i] = new QPushButton;
         setico(i,0);
         lab[i]->setMouseTracking(true);
         lab[i]->setStyleSheet("background-color:transparent");
 
-       // lan[i]->setAutoRepeat();
-            //lab[i]->setFlat(true);
+
             lab[i]->setFixedSize(50,50);
 
             lab[i]->setEnabled(false);
